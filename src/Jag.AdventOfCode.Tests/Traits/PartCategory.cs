@@ -25,7 +25,6 @@ namespace Jag.AdventOfCode.Tests.Traits
         {
             var part = traitAttribute.GetNamedArgument<int>("Part");
             yield return new KeyValuePair<string, string>("Category", $"Part{part}");
-            yield return new KeyValuePair<string, string>("Part", $"{part}");
         }
     }
 }

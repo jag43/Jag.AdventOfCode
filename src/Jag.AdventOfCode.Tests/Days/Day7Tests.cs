@@ -1,22 +1,46 @@
+using System;
 using System.Threading.Tasks;
-using Jag.AdventOfCode.Tests;
 using Jag.AdventOfCode.Tests.Traits;
+using Jag.AdventOfCode.Y2021.Day7;
+using Shouldly;
 using Xunit;
 
-namespace Jag.AdventOfCode.Y2021.Tests
+namespace Jag.AdventOfCode.Tests.Days
 {
-    [Year(2021)]
+    [Year(2021), Day(7)]
     public class Day7Tests : TestBase
     {
         public Day7Tests()
-            : base(new Day7.Solver(), new InputRepository(), new AnswerRepository())
+        : base (new Solver(), new InputRepository(), new AnswerRepository())
         {
         }
 
-        [Fact, Part(1), Input(true)]
-        public override async Task Part1Test()
+        //[Part(1), Input(true)]
+        [Fact]
+        public async Task Part1Test()
         {
-            await base.Part1Test();
+            await base.Test(solver.Year, solver.Day, 1, true);
+        }
+
+        //[Part(1), Input(false)]
+        [Fact]
+        public async Task Part1()
+        {
+            await base.Test(solver.Year, solver.Day, 1, false);
+        }
+
+        //[Part(2), Input(true)]
+        [Fact]
+        public async Task Part2Test()
+        {
+            await base.Test(solver.Year, solver.Day, 2, true);
+        }
+
+        //[Part(2), Input(false)]
+        [Fact]
+        public async Task Part2()
+        {
+            await base.Test(solver.Year, solver.Day, 2, false);
         }
     }
 }

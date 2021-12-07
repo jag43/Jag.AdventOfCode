@@ -1,13 +1,45 @@
+using System.Threading.Tasks;
 using Jag.AdventOfCode.Tests;
+using Jag.AdventOfCode.Tests.Traits;
+using Jag.AdventOfCode.Y2021.Day3;
+using Xunit;
 
 namespace Jag.AdventOfCode.Y2021.Tests
 {
-    // public class Day3Tests : TestBase
-    // {
-    //     public Day3Tests()
-    //         : base(new Day3.Solver(), new InputRepository(), new AnswerRepository())
-    //     {
+    [Year(2021), Day(3)]
+    public class Day3Tests : TestBase
+    {
+        public Day3Tests()
+        : base (new Solver(), new InputRepository(), new AnswerRepository())
+        {
+        }
 
-    //     }
-    // }
+        //[Part(1), Input(true)]
+        [Fact]
+        public async Task Part1Test()
+        {
+            await base.Test(solver.Year, solver.Day, 1, true);
+        }
+
+        //[Part(1), Input(false)]
+        [Fact]
+        public async Task Part1()
+        {
+            await base.Test(solver.Year, solver.Day, 1, false);
+        }
+
+        //[Part(2), Input(true)]
+        [Fact]
+        public async Task Part2Test()
+        {
+            await base.Test(solver.Year, solver.Day, 2, true);
+        }
+
+        //[Part(2), Input(false)]
+        [Fact]
+        public async Task Part2()
+        {
+            await base.Test(solver.Year, solver.Day, 2, false);
+        }
+    }
 }

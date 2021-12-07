@@ -25,7 +25,6 @@ namespace Jag.AdventOfCode.Tests.Traits
         {
             var year = traitAttribute.GetNamedArgument<int>("Year");
             yield return new KeyValuePair<string, string>("Category", $"Y{year}");
-            yield return new KeyValuePair<string, string>("Year", $"{year}");
         }
     }
 }

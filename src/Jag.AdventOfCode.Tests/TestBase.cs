@@ -20,29 +20,29 @@ namespace Jag.AdventOfCode.Tests
             this.answerRepository = answerRepository;
         }
 
-        [Fact, Part(1), Input(true)]
-        public virtual async Task Part1Test()
-        {
-            await Test(solver.Year, solver.Day, 1, true);
-        }
+        // [Fact, Part(1), Input(true)]
+        // public virtual async Task Part1Test()
+        // {
+        //     await Test(solver.Year, solver.Day, 1, true);
+        // }
 
-        [Fact, Part(1), Input]
-        public async Task Part1()
-        {
-            await Test(solver.Year, solver.Day, 1, false);
-        }
+        // [Fact, Part(1), Input]
+        // public async Task Part1()
+        // {
+        //     await Test(solver.Year, solver.Day, 1, false);
+        // }
 
-        [Fact, Part(2), Input(true)]
-        public async Task Part2Test()
-        {
-            await Test(solver.Year, solver.Day, 2, true);
-        }
+        // [Fact, Part(2), Input(true)]
+        // public async Task Part2Test()
+        // {
+        //     await Test(solver.Year, solver.Day, 2, true);
+        // }
 
-        [Fact, Part(2), Input]
-        public async Task Part2()
-        {
-            await Test(solver.Year, solver.Day, 2, false);
-        }
+        // [Fact, Part(2), Input]
+        // public async Task Part2()
+        // {
+        //     await Test(solver.Year, solver.Day, 2, false);
+        // }
 
         protected async Task Test(int year, int day, int part, bool test)
         {

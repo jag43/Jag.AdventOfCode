@@ -12,18 +12,78 @@ namespace Jag.AdventOfCode.Y2021.Day3
 
         public string SolvePart1(string input)
         {
-            return string.Empty;
+            var lines = input.Split(Environment.NewLine, options: StringSplitOptions.RemoveEmptyEntries).Select(b => b.ToCharArray()).ToList();
+
+            Console.WriteLine("Get gamma string");
+            var gammaString = new string(GetGammaString(lines));
+            var gamma = Convert.ToUInt64(gammaString, 2);
+
+            Console.WriteLine("Get epsilon string");
+            var epsilonString = new string(GetEpsilonString(lines));
+            var epsilon = Convert.ToUInt64(epsilonString, 2);
+
+            Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(new{gammaString, gamma, epsilonString, epsilon}));
+
+            return (gamma * epsilon).ToString();
+        }
+
+        private static char[] GetGammaString(List<char[]> lines)
+        {
+            var length = lines[0].Length;
+            var epsilon = new char[length];
+            for (int i = 0; i < length; i++)
+            {
+                var (num0s, num1s) = GetNum0And1s(lines, i);
+                if (num0s > num1s)
+                {
+                    epsilon[i] = '0';
+                }
+                else if (num1s > num0s)
+                {
+                    epsilon[i] = '1';
+                }
+                else
+                {
+                    throw new Exception();
+                }
+            }
+
+            return epsilon;
+        }
+
+        private static char[] GetEpsilonString(List<char[]> lines)
+        {
+            var length = lines[0].Length;
+            var epsilon = new char[length];
+            for (int i = 0; i < length; i++)
+            {
+                var (num0s, num1s) = GetNum0And1s(lines, i);
+                if (num0s > num1s)
+                {
+                    epsilon[i] = '1';
+                }
+                else if (num1s > num0s)
+                {
+                    epsilon[i] = '0';
+                }
+                else
+                {
+                    throw new Exception();
+                }
+            }
+
+            return epsilon;
         }
 
         public string SolvePart2(string input)
         {
-            var lines = input.Split(Environment.NewLine).Select(b => b.ToCharArray());
+            var lines = input.Split(Environment.NewLine, options: StringSplitOptions.RemoveEmptyEntries).Select(b => b.ToCharArray());
 
             var oxygenString = new string(GetOxygenString(lines));
             var co2scrubString = new string(GetCo2String(lines));
 
-            var oxygen = Convert.ToUInt64(oxygenString);
-            var co2scrub = Convert.ToUInt64(co2scrubString);
+            var oxygen = Convert.ToUInt64(oxygenString, 2);
+            var co2scrub = Convert.ToUInt64(co2scrubString, 2);
 
             Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(new{oxygenString, oxygen, co2scrub, co2scrubString}));
 

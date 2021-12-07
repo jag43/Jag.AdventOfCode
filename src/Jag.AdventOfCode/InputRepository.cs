@@ -15,7 +15,10 @@ namespace Jag.AdventOfCode
             else
                 relativePath = $"{year:d}Day{day:d}.txt";
 
-            var input = await File.ReadAllTextAsync(Path.Join(Environment.CurrentDirectory, Paths.InputRoot, relativePath));
+            var input = await File.ReadAllTextAsync(Path.Join(
+                Path.GetDirectoryName(typeof(InputRepository).Assembly.Location),
+                Paths.InputRoot,
+                relativePath));
 
             File.WriteAllText($@"G:\temp\log\{relativePath}", input);
 
