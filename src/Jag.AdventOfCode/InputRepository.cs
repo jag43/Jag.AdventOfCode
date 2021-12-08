@@ -20,8 +20,6 @@ namespace Jag.AdventOfCode
                 Paths.InputRoot,
                 relativePath));
 
-            File.WriteAllText($@"G:\temp\log\{relativePath}", input);
-
             return input;
         }
     }

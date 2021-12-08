@@ -1,15 +1,16 @@
+using System;
 using System.Threading.Tasks;
-using Jag.AdventOfCode.Tests;
 using Jag.AdventOfCode.Tests.Traits;
-using Jag.AdventOfCode.Y2021.Day3;
+using Jag.AdventOfCode.Y2021.Day7;
+using Shouldly;
 using Xunit;
 
-namespace Jag.AdventOfCode.Y2021.Tests
+namespace Jag.AdventOfCode.Tests.Y2021
 {
-    [Year(2021), Day(3)]
-    public class Day3Tests : TestBase
+    [Year(2021), Day(7)]
+    public class Day7Tests : TestBase
     {
-        public Day3Tests()
+        public Day7Tests()
         : base (new Solver(), new InputRepository(), new AnswerRepository())
         {
         }
