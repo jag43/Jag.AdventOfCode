@@ -15,7 +15,7 @@ if (Test-Path $Part1AnswerPath) {
 } elseif([string]::IsNullOrWhiteSpace($Part1Answer)){
     Write-Verbose "No part 1 answer value provided"
 } else {
-    New-Item -Path $Part1AnswerPath -Value $Part1Answer
+    New-Item -Path $Part1AnswerPath -Value $Part1Answer| Out-Null
 }
 
 # Create Part 2 Test Answer if exists
@@ -25,7 +25,7 @@ if (Test-Path $Part2TestAnswerPath) {
 } elseif([string]::IsNullOrWhiteSpace($Part2TestAnswer)){
     Write-Verbose "No part 2 test answer value provided"
 } else {
-    New-Item -Path $Part2TestAnswerPath -Value $Part2TestAnswer
+    New-Item -Path $Part2TestAnswerPath -Value $Part2TestAnswer| Out-Null
 }
 
 # Create Part 2 Answer if exists
@@ -35,5 +35,5 @@ if (Test-Path $Part2AnswerPath) {
 } elseif([string]::IsNullOrWhiteSpace($Part2Answer)){
     Write-Verbose "No part 2 answer value provided"
 } else {
-    New-Item -Path $Part2AnswerPath -Value $Part2Answer
+    New-Item -Path $Part2AnswerPath -Value $Part2Answer| Out-Null
 }
