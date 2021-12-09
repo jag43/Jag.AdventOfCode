@@ -1,7 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-namespace Day4
+
+namespace Jag.AdventOfCode.Y2021.Day4
 {
     public class BingoBoard
     {
@@ -19,6 +20,17 @@ namespace Day4
         public List<List<BingoSquare>> Columns { get; } = new();
 
         public int AchievesBingo() => Rows.Concat(Columns).Min(squares => squares.AchievesBingo());
+
+        public int GetScore()
+        {
+            var achievesBingo = this.AchievesBingo();
+            var lastBingoNumber = bingoData.Numbers[achievesBingo];
+            var allSquares = this.Rows.SelectMany(row => row);
+            var allUnmarked = allSquares.Where(square => square.Selected > achievesBingo);
+            var sum = allUnmarked.Sum(sq => sq.Number);
+
+            return sum * lastBingoNumber;
+        }
 
         public static BingoBoard CreateFrom(BingoData bingoData, List<string> rows)
         {

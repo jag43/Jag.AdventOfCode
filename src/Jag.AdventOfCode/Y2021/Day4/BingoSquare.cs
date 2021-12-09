@@ -1,4 +1,4 @@
-namespace Day4
+namespace Jag.AdventOfCode.Y2021.Day4
 {
     public class BingoSquare
     {

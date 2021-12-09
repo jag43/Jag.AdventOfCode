@@ -8,7 +8,7 @@ namespace Jag.AdventOfCode.Runner
     {
         public static async Task<int> Main(string[] args)
         {
-            var solver = new Y2021.Day8.Solver();
+            var solver = new Y2021.Day4.Solver();
             int part = 2;
 
             var testInput = await new InputRepository().GetInputAsync(solver.Year, solver.Day, true);

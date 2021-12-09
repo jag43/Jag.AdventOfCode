@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Day4
+namespace Jag.AdventOfCode.Y2021.Day4
 {
     public class BingoData
     {
@@ -41,7 +41,10 @@ namespace Day4
                     list.Add(line);
                 }
             }
-            yield return list;
+            if (list.Any())
+            {
+                yield return list;
+            }
         }
     }
 }

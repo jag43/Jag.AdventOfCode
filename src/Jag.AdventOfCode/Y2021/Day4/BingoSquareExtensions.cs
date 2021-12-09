@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace  Day4
+namespace Jag.AdventOfCode.Y2021.Day4
 {
     public static class BingoSquareExtensions
     {
