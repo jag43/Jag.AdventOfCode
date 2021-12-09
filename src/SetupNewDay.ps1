@@ -89,10 +89,10 @@ using Xunit;
 
 namespace Jag.AdventOfCode.Tests.Y${Year}
 {
-    [Year(${Year}), Day(8)]
-    public class Day8Tests : TestBase
+    [Year(${Year}), Day(${Day})]
+    public class Day${Day}Tests : TestBase
     {
-        public Day8Tests()
+        public Day${Day}Tests()
         : base (new Solver(), new InputRepository(), new AnswerRepository())
         {
         }

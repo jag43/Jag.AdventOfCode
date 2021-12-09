@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -41,5 +42,33 @@ namespace Jag.AdventOfCode.Y2021.Day8
             Eight,
             Nine
         }.AsReadOnly();
+
+        public static int ConvertSegmentsToInt(params string[] segments)
+        {
+            var chars = new List<char>();
+            foreach (var segment in segments)
+            {
+                chars.Add(SegmentToChar(segment));
+            }
+            return int.Parse(new string(chars.ToArray()));
+        }
+
+        private static char SegmentToChar(string segment)
+        {
+            switch(segment)
+            {
+                case Zero: return '0';
+                case One: return '1';
+                case Two: return '2';
+                case Three: return '3';
+                case Four: return '4';
+                case Five: return '5';
+                case Six: return '6';
+                case Seven: return '7';
+                case Eight: return '8';
+                case Nine: return '9';
+                default: throw new Exception();
+            }
+        }
     } 
 }

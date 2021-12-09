@@ -34,6 +34,26 @@ namespace Jag.AdventOfCode.Y2021.Day8
             return numberOfTimesRelevantDigitsAppear.ToString();
         }
 
+        public string SolvePart2(string input)
+        {
+             var lines = ParseInput(input);
+
+            var fourDigitCodes = new List<int>();
+
+            foreach (var line in lines)
+            {
+                var lookup = BuildScrambledSegmentLookup(line.Left).ToDictionary(kvp => kvp.Value, kvp => kvp.Key);
+                var one = lookup[line.Right[0]];
+                var two = lookup[line.Right[1]];
+                var three = lookup[line.Right[2]];
+                var four = lookup[line.Right[3]];
+
+                fourDigitCodes.Add(SevenSegmentDisplay.ConvertSegmentsToInt(one, two, three, four));
+            }
+            
+            return fourDigitCodes.Sum().ToString();
+        }
+
         private Dictionary<string, string> BuildScrambledSegmentLookup(string[] scrambledSegments)
         {
             var lookup = new Dictionary<string, string>();
@@ -56,8 +76,9 @@ namespace Jag.AdventOfCode.Y2021.Day8
             lookup.Add(SevenSegmentDisplay.Zero, remainingScrambledSegments.Single(s => s.Length == 6 && s.Any(c => remainingSegmentFrequency[c] == 1)));
             lookup.Add(SevenSegmentDisplay.Nine, remainingScrambledSegments.Single(s => s.Length == 6));
             // FIVE AND THREE
-            //lookup.Add(SevenSegmentDisplay.Five, remainingScrambledSegments.Single(s => s.Length == 6 && s.Any(c => remainingSegmentFrequency[c] == 1)));
-            //lookup.Add(SevenSegmentDisplay.Three, remainingScrambledSegments.Single(s => s.Length == 5));
+            var cf = lookup[SevenSegmentDisplay.One];
+            lookup.Add(SevenSegmentDisplay.Three, remainingScrambledSegments.Single(s => s.Length == 5 && s.Intersect(cf).Count() == 2));
+            lookup.Add(SevenSegmentDisplay.Five, remainingScrambledSegments.Single());
 
             return lookup;//.ToDictionary(kvp => kvp.Value, kvp => kvp.Key);
         }
@@ -73,11 +94,6 @@ namespace Jag.AdventOfCode.Y2021.Day8
                 yield return (left, right);
             }
 
-        }
-
-        public string SolvePart2(string input)
-        {
-            throw new NotImplementedException();
         }
     }
 }
