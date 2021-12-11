@@ -5,16 +5,18 @@ param (
     [int]$Day,
     [Parameter(Mandatory=$true)]
     [string]$TestInputData,
-    [Parameter(Mandatory=$true)]
     [string]$InputData,
     [Parameter(Mandatory=$true)]
     [string]$Part1TestAnswer,
     [string]$Part1Answer,
     [string]$Part2TestAnswer,
     [string]$Part2Answer
- )
+)
+
+Push-Location $PSScriptRoot
+
 # Create Test Input
-$TestInputPath = "./Jag.AdventOfCode/Input/${Year}Day${Day}Test.txt";
+$TestInputPath = "../Jag.AdventOfCode/Input/${Year}Day${Day}Test.txt";
 if (!(Test-Path $TestInputPath)) {
     New-Item -Path $TestInputPath -Value $TestInputData| Out-Null
 } else {
@@ -22,7 +24,7 @@ if (!(Test-Path $TestInputPath)) {
 }
 
 # Create Input
-$InputPath = "./Jag.AdventOfCode/Input/${Year}Day${Day}.txt"
+$InputPath = "../Jag.AdventOfCode/Input/${Year}Day${Day}.txt"
 if (!(Test-Path $InputPath)) {
     New-Item -Path $InputPath -Value $InputData| Out-Null
 }
@@ -31,7 +33,7 @@ else {
 }
 
 # Create Part 1 Test Answer
-$Part1TestAnswerPath = "./Jag.AdventOfCode/Answers/${Year}Day${Day}Part1Test.txt"
+$Part1TestAnswerPath = "../Jag.AdventOfCode/Answers/${Year}Day${Day}Part1Test.txt"
 if (Test-Path $Part1TestAnswerPath) {
     Write-Warning "Part 1 test answer file already exists"
 } else {
@@ -41,7 +43,7 @@ if (Test-Path $Part1TestAnswerPath) {
 .\UpdateDay.ps1 -Year $Year -Day $Day -Part1Answer $Part1Answer -Part2TestAnswer $Part2TestAnswer -Part2Answer $Part2Answer
 
 # Create Solver
-$SolverDirectory = "./Jag.AdventOfCode/Y${Year}/Day${Day}";
+$SolverDirectory = "../Jag.AdventOfCode/Y${Year}/Day${Day}";
 $SolverPath = "${SolverDirectory}/Solver.cs";
 if (!(Test-Path $SolverDirectory)) {
     New-Item -Path $SolverDirectory -ItemType "Directory"| Out-Null
@@ -73,7 +75,7 @@ namespace Jag.AdventOfCode.Y${Year}.Day${Day}
 }
 
 # Create Test class
-$TestClassDirectory = "./Jag.AdventOfCode.Tests/Days/Day${Day}Tests"
+$TestClassDirectory = "../Jag.AdventOfCode.Tests/Y${Year}/"
 $TestClassPath = "${TestClassDirectory}/Day${Day}Tests.cs"
 if (!(Test-Path $TestClassDirectory)) {
     New-Item -Path $TestClassDirectory -ItemType "Directory"| Out-Null
@@ -127,3 +129,5 @@ namespace Jag.AdventOfCode.Tests.Y${Year}
     }
 }"| Out-Null;
 }
+
+Pop-Location

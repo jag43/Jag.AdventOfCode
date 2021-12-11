@@ -8,8 +8,10 @@ param (
     [string]$Part2Answer
  )
 
+Push-Location $PSScriptRoot
+
 # Create Part 1 Answer if exists
-$Part1AnswerPath = "./Jag.AdventOfCode/Answers/${Year}Day${Day}Part1.txt"
+$Part1AnswerPath = "../Jag.AdventOfCode/Answers/${Year}Day${Day}Part1.txt"
 if([string]::IsNullOrWhiteSpace($Part1Answer)){
     Write-Verbose "No part 1 answer value provided"
 } elseif (Test-Path $Part1AnswerPath) {
@@ -19,7 +21,7 @@ if([string]::IsNullOrWhiteSpace($Part1Answer)){
 }
 
 # Create Part 2 Test Answer if exists
-$Part2TestAnswerPath = "./Jag.AdventOfCode/Answers/${Year}Day${Day}Part2Test.txt"
+$Part2TestAnswerPath = "../Jag.AdventOfCode/Answers/${Year}Day${Day}Part2Test.txt"
 if([string]::IsNullOrWhiteSpace($Part2TestAnswer)){
     Write-Verbose "No part 2 test answer value provided"
 } elseif (Test-Path $Part2TestAnswerPath) {
@@ -29,7 +31,7 @@ if([string]::IsNullOrWhiteSpace($Part2TestAnswer)){
 }
 
 # Create Part 2 Answer if exists
-$Part2AnswerPath = "./Jag.AdventOfCode/Answers/${Year}Day${Day}Part2.txt"
+$Part2AnswerPath = "../Jag.AdventOfCode/Answers/${Year}Day${Day}Part2.txt"
 if([string]::IsNullOrWhiteSpace($Part2Answer)){
     Write-Verbose "No part 2 answer value provided"
 } elseif (Test-Path $Part2AnswerPath) {
@@ -37,3 +39,5 @@ if([string]::IsNullOrWhiteSpace($Part2Answer)){
 } else {
     New-Item -Path $Part2AnswerPath -Value $Part2Answer| Out-Null
 }
+
+Pop-Location

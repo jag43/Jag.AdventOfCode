@@ -47,7 +47,7 @@ namespace Jag.AdventOfCode.Tests
         protected async Task Test(int year, int day, int part, bool test)
         {
             var input = await inputRepository.GetInputAsync(year, day, test);
-            var expectedAnswer = await answerRepository.GetExpectedAnswer(year, day, part, test);
+            var expectedAnswer = await answerRepository.GetExpectedAnswerAsync(year, day, part, test);
 
             string answer;
             switch (part)
