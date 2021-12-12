@@ -4,21 +4,19 @@ param (
     [Parameter(Mandatory=$true)]
     [int]$Day,
     [Parameter(Mandatory=$true)]
-    [string]$TestInputData,
-    [string]$InputData,
-    [Parameter(Mandatory=$true)]
     [string]$Part1TestAnswer,
-    [string]$Part1Answer,
     [string]$Part2TestAnswer,
+    [string]$Part1Answer,
     [string]$Part2Answer
 )
 
 Push-Location $PSScriptRoot
 
 # Create Test Input
-$TestInputPath = "../Jag.AdventOfCode/Input/${Year}Day${Day}Test.txt";
+$TestInputPath = "../Jag.AdventOfCode/Input/${Year}Day${Day}Test.txt"
 if (!(Test-Path $TestInputPath)) {
-    New-Item -Path $TestInputPath -Value $TestInputData| Out-Null
+    New-Item -Path $TestInputPath -Value "" | Out-Null
+    code $TestInputPath
 } else {
     Write-Warning "Test input file already exists"
 }
@@ -26,7 +24,7 @@ if (!(Test-Path $TestInputPath)) {
 # Create Input
 $InputPath = "../Jag.AdventOfCode/Input/${Year}Day${Day}.txt"
 if (!(Test-Path $InputPath)) {
-    New-Item -Path $InputPath -Value $InputData| Out-Null
+    New-Item -Path $InputPath -Value "" | Out-Null
 }
 else {
     Write-Warning "Input file already exists"
@@ -37,16 +35,16 @@ $Part1TestAnswerPath = "../Jag.AdventOfCode/Answers/${Year}Day${Day}Part1Test.tx
 if (Test-Path $Part1TestAnswerPath) {
     Write-Warning "Part 1 test answer file already exists"
 } else {
-    New-Item -Path $Part1TestAnswerPath -Value $Part1TestAnswer| Out-Null
+    New-Item -Path $Part1TestAnswerPath -Value $Part1TestAnswer | Out-Null
 }
 
 .\UpdateDay.ps1 -Year $Year -Day $Day -Part1Answer $Part1Answer -Part2TestAnswer $Part2TestAnswer -Part2Answer $Part2Answer
 
 # Create Solver
-$SolverDirectory = "../Jag.AdventOfCode/Y${Year}/Day${Day}";
-$SolverPath = "${SolverDirectory}/Solver.cs";
+$SolverDirectory = "../Jag.AdventOfCode/Y${Year}/Day${Day}"
+$SolverPath = "${SolverDirectory}/Solver.cs"
 if (!(Test-Path $SolverDirectory)) {
-    New-Item -Path $SolverDirectory -ItemType "Directory"| Out-Null
+    New-Item -Path $SolverDirectory -ItemType "Directory" | Out-Null
 }
 if (Test-Path $SolverPath) {
     Write-Warning "Solver file already exists"
@@ -71,7 +69,7 @@ namespace Jag.AdventOfCode.Y${Year}.Day${Day}
             throw new NotImplementedException();
         }
     }
-}"| Out-Null;
+}" | Out-Null
 }
 
 # Create Test class
@@ -127,7 +125,7 @@ namespace Jag.AdventOfCode.Tests.Y${Year}
             await base.Test(solver.Year, solver.Day, 2, false);
         }
     }
-}"| Out-Null;
+}" | Out-Null
 }
 
 Pop-Location
