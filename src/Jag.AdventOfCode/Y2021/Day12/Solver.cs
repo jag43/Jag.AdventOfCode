@@ -14,57 +14,20 @@ namespace Jag.AdventOfCode.Y2021.Day12
         {
             var nodes = ParseInput(input);
 
-            var paths = FindAllPaths(nodes);
+            var allPaths = new List<List<Cave>>();
+            FindAllPathsPart1(nodes, allPaths, new List<Cave>(), "start");
 
-            return paths.Count.ToString();
-        }
-
-        private List<List<string>> FindAllPaths(Dictionary<string, Cave> nodes)
-        {
-            var allPaths = new List<List<string>>();
-   
-            FindAllPaths(nodes, allPaths, new List<string>(), "start");
-
-            return allPaths;
-        }
-
-        private void FindAllPaths(Dictionary<string, Cave> nodes, List<List<string>> paths, List<string> currentPath, string currentNodeName)
-        {
-            var currentNode = nodes[currentNodeName];
-
-            foreach (var linkedNode in currentNode.Connections.Values)
-            {
-                var path = currentPath.ToList();
-                if (linkedNode.IsEnd)
-                {
-                    // finished path
-                    path.Add(linkedNode.Name);
-                    paths.Add(path);
-                    continue;
-                }
-                else if (linkedNode.IsStart)
-                {
-                    // don't go back to start
-                    continue;
-                }
-                else if (!linkedNode.IsBig && path.Contains(linkedNode.Name))
-                {
-                    // can't visit a small cave twice
-                    continue;
-                }
-                else
-                {
-                    path.Add(linkedNode.Name);
-                    FindAllPaths(nodes, paths, path, linkedNode.Name);
-                }
-            }
+            return allPaths.Count.ToString();
         }
 
         public string SolvePart2(string input)
         {
             var nodes = ParseInput(input);
 
-            throw new NotImplementedException();
+            var allPaths = new List<List<Cave>>();
+            FindAllPathsPart2(nodes, allPaths, new List<Cave>(), "start");
+
+            return allPaths.Count.ToString();
         }
 
         private Dictionary<string, Cave> ParseInput(string input)
@@ -106,6 +69,72 @@ namespace Jag.AdventOfCode.Y2021.Day12
 
             cave.Connections.Add(linkedName, linkedCave);
             linkedCave.Connections.Add(name, cave);
+        }
+    
+        private void FindAllPathsPart1(Dictionary<string, Cave> nodes, List<List<Cave>> paths, List<Cave> currentPath, string currentNodeName)
+        {
+            var currentNode = nodes[currentNodeName];
+
+            foreach (var linkedNode in currentNode.Connections.Values)
+            {
+                var path = currentPath.ToList();
+                if (linkedNode.IsEnd)
+                {
+                    // finished path
+                    path.Add(linkedNode);
+                    paths.Add(path);
+                    continue;
+                }
+                else if (linkedNode.IsStart)
+                {
+                    // don't go back to start
+                    continue;
+                }
+                else if (!linkedNode.IsBig && path.Any(c => c.Name == linkedNode.Name))
+                {
+                    // can't visit a small cave twice
+                    continue;
+                }
+                else
+                {
+                    path.Add(linkedNode);
+                    FindAllPathsPart1(nodes, paths, path, linkedNode.Name);
+                }
+            }
+        }
+    
+        private void FindAllPathsPart2(Dictionary<string, Cave> nodes, List<List<Cave>> paths, List<Cave> currentPath, string currentNodeName)
+        {
+            var currentNode = nodes[currentNodeName];
+
+            bool visitedASmallCaveTwice = currentPath.Where(c => !c.IsBig).GroupBy(c => c.Name).Any(group => group.Count() > 1);
+
+            foreach (var linkedNode in currentNode.Connections.Values)
+            {
+                var path = currentPath.ToList();
+                if (linkedNode.IsEnd)
+                {
+                    // finished path
+                    path.Add(linkedNode);
+                    paths.Add(path);
+                    continue;
+                }
+                else if (linkedNode.IsStart)
+                {
+                    // don't go back to start
+                    continue;
+                }
+                else if (visitedASmallCaveTwice && !linkedNode.IsBig && path.Any(c => c.Name == linkedNode.Name))
+                {
+                    // can only visit a single small cave twice
+                    continue;
+                }
+                else
+                {
+                    path.Add(linkedNode);
+                    FindAllPathsPart2(nodes, paths, path, linkedNode.Name);
+                }
+            }
         }
     }
 }
