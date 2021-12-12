@@ -32,43 +32,45 @@ namespace Jag.AdventOfCode.Y2021.Day12
 
         private Dictionary<string, Cave> ParseInput(string input)
         {
-            var nodes = new Dictionary<string, Cave>();
+            var caves = new Dictionary<string, Cave>();
 
             foreach (var line in input.Split(Environment.NewLine, options: StringSplitOptions.RemoveEmptyEntries))
             {
                 var lineNodes = line.Split("-", options: StringSplitOptions.RemoveEmptyEntries);
-                AddNodes(nodes, lineNodes[0], lineNodes[1]);
+                string left = lineNodes[0];
+                Cave leftCave;
+                if (caves.ContainsKey(left))
+                {
+                    leftCave = caves[left];
+                }
+                else
+                {
+                    leftCave = new Cave(left);
+                    caves.Add(left, leftCave);
+                }
+
+                string right = lineNodes[1];
+                Cave rightCave;
+                if (caves.ContainsKey(right))
+                {
+                    rightCave = caves[right];
+                }
+                else 
+                {
+                    rightCave = new Cave(right);
+                    caves.Add(right, rightCave);
+                }
+
+                leftCave.Connections.Add(right, rightCave);
+                rightCave.Connections.Add(left, leftCave);
             }
 
-            return nodes;
+            return caves;
         }
 
         private void AddNodes(Dictionary<string, Cave> nodes, string name, string linkedName)
         {
-            Cave cave;
-            if (nodes.ContainsKey(name))
-            {
-                cave = nodes[name];
-            }
-            else
-            {
-                cave = new Cave(name);
-                nodes.Add(name, cave);
-            }
 
-            Cave linkedCave;
-            if (nodes.ContainsKey(linkedName))
-            {
-                linkedCave = nodes[linkedName];
-            }
-            else 
-            {
-                linkedCave = new Cave(linkedName);
-                nodes.Add(linkedName, linkedCave);
-            }
-
-            cave.Connections.Add(linkedName, linkedCave);
-            linkedCave.Connections.Add(name, cave);
         }
     
         private void FindAllPathsPart1(Dictionary<string, Cave> nodes, List<List<Cave>> paths, List<Cave> currentPath, string currentNodeName)
