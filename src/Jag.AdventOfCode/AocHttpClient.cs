@@ -74,7 +74,7 @@ namespace Jag.AdventOfCode
             {
                 new KeyValuePair<string, string>("answer", answer),
                 new KeyValuePair<string, string>("level", part.ToString())
-            };
+            });
         }
 
         private void GuardAgainstNonSuccessStatusCode(HttpResponseMessage response, string content)
