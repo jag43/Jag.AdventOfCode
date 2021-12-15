@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 
@@ -28,7 +29,7 @@ namespace Jag.AdventOfCode.Runner
                 logger.LogWarning("No AoC session cookie - cannot get input or submit results");
             }
 
-            ISolver solver = new Y2021.Day13.Solver();
+            ISolver solver = new Y2021.Day14.Solver();
 
             var testInput = await inputRepository.GetInputAsync(solver.Year, solver.Day, true);
             var input = await inputRepository.GetInputAsync(solver.Year, solver.Day, false);
@@ -45,10 +46,15 @@ namespace Jag.AdventOfCode.Runner
         
         private async Task SolveProblem(ISolver solver, int part, string input, string testInput)
         {
+            var sw = new Stopwatch();
             string testAnswer;
+            TimeSpan testTime;
             try
             {
+                sw.Start();
                 testAnswer = solver.SolvePart(testInput, part);
+                testTime = sw.Elapsed;
+                sw.Reset();
             }
             catch (NotImplementedException)
             {
@@ -59,22 +65,27 @@ namespace Jag.AdventOfCode.Runner
             var expectedTestAnswer = await answerRepository.GetExpectedAnswerAsync(solver.Year, solver.Day, part, true);
             if (expectedTestAnswer != null)
             {
-                logger.LogInformation("Test Part {Part}: Expected {ExpectedTestAnswer}, Actual: {TestAnswer}", part, expectedTestAnswer, testAnswer);
+                logger.LogInformation("Test Part {Part}: Expected {ExpectedTestAnswer}, Actual: {TestAnswer}, Time {Time} ms", part, expectedTestAnswer, testAnswer, testTime, testTime.TotalMilliseconds);
             }
             else
             {
-                logger.LogInformation("Test Part {Part}: Expected FILE_NOT_FOUND, Actual: {TestAnswer}", part, testAnswer);
+                logger.LogInformation("Test Part {Part}: Expected FILE_NOT_FOUND, Actual: {TestAnswer}, Time {Time} ms", part, testAnswer, testTime, testTime.TotalMilliseconds);
             }
 
+            TimeSpan time;
+            sw.Start();
             string answer = solver.SolvePart(input, part);
+            sw.Stop();
+            time = sw.Elapsed;
+            testTime = sw.Elapsed;
             var expectedAnswer = await answerRepository.GetExpectedAnswerAsync(solver.Year, solver.Day, part, false);
             if (expectedAnswer != null)
             {
-                logger.LogInformation("Part {Part}: Expected {ExpectedAnswer}, Actual: {Answer}", part, expectedAnswer, answer);
+                logger.LogInformation("Part {Part}: Expected {ExpectedAnswer}, Actual: {Answer}, Time {Time} ms", part, expectedAnswer, answer, time, time.TotalMilliseconds);
             }
             else
             {
-                logger.LogInformation("Part {Part}: Expected FILE_NOT_FOUND, Actual: {Answer}", part, answer);
+                logger.LogInformation("Part {Part}: Expected FILE_NOT_FOUND, Actual: {Answer}, Time {Time} ms", part, answer, time.TotalMilliseconds);
             }
 
             if (aocHttpClient.IsConfigured && expectedTestAnswer == testAnswer && string.IsNullOrWhiteSpace(expectedAnswer))
