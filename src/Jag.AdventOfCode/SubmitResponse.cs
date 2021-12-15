@@ -13,14 +13,15 @@ namespace Jag.AdventOfCode
 
     public static class SubmitResponseExtensions
     {
-        public static string ToMessage(this SubmitResponse submitResponse)
+        public static string ToMessage(this SubmitResponse submitResponse, int part)
         {
-            return submitResponse switch
+            return (submitResponse, part) switch
             {
-                SubmitResponse.Correct => "That's the right answer! ⭐",
-                SubmitResponse.Incorrect => "That's not the right answer. 😢",
-                SubmitResponse.Timeout => "Timeout! Slow down. 🕑",
-                SubmitResponse.AlreadySolved => "Answer already submitted. ⚠",
+                (SubmitResponse.Correct, 1) => "⭐ That's the right answer! ⭐",
+                (SubmitResponse.Correct, 2) => "⭐⭐ That's the right answer! ⭐⭐",
+                (SubmitResponse.Incorrect, _) => "That's not the right answer. 😢",
+                (SubmitResponse.Timeout, _) => "Timeout! Slow down. 🕑",
+                (SubmitResponse.AlreadySolved, _) => "Answer already submitted. ⚠",
                 _ => throw new InvalidOperationException($"Unknown {nameof(SubmitResponse)}: {submitResponse}")
             };
         }

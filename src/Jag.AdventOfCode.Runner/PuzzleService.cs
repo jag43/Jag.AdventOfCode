@@ -65,11 +65,14 @@ namespace Jag.AdventOfCode.Runner
             var expectedTestAnswer = await answerRepository.GetExpectedAnswerAsync(solver.Year, solver.Day, part, true);
             if (expectedTestAnswer != null)
             {
-                logger.LogInformation("Test Part {Part}: Expected {ExpectedTestAnswer}, Actual: {TestAnswer}, Time {Time} ms", part, expectedTestAnswer, testAnswer, testTime, testTime.TotalMilliseconds);
+                string correct = expectedTestAnswer == testAnswer
+                    ? "✅"
+                    : "❌";
+                logger.LogInformation("Test Part {Part}: Answer: '{TestAnswer}' should be '{ExpectedTestAnswer}' " + correct + ", Time {Time} ms", part, expectedTestAnswer, testAnswer, testTime.TotalMilliseconds);
             }
             else
             {
-                logger.LogInformation("Test Part {Part}: Expected FILE_NOT_FOUND, Actual: {TestAnswer}, Time {Time} ms", part, testAnswer, testTime, testTime.TotalMilliseconds);
+                logger.LogInformation("Test Part {Part}: Answer: '{TestAnswer}', Time {Time} ms", part, testAnswer, testTime.TotalMilliseconds);
             }
 
             TimeSpan time;
@@ -81,11 +84,14 @@ namespace Jag.AdventOfCode.Runner
             var expectedAnswer = await answerRepository.GetExpectedAnswerAsync(solver.Year, solver.Day, part, false);
             if (expectedAnswer != null)
             {
-                logger.LogInformation("Part {Part}: Expected {ExpectedAnswer}, Actual: {Answer}, Time {Time} ms", part, expectedAnswer, answer, time, time.TotalMilliseconds);
+                string correct = expectedAnswer == answer
+                    ? "✅"
+                    : "❌";
+                logger.LogInformation("Part {Part}: Answer '{Answer}' should be '{ExpectedAnswer}' " + correct + ", Time {Time} ms", part, expectedAnswer, answer, time.TotalMilliseconds);
             }
             else
             {
-                logger.LogInformation("Part {Part}: Expected FILE_NOT_FOUND, Actual: {Answer}, Time {Time} ms", part, answer, time.TotalMilliseconds);
+                logger.LogInformation("Part {Part}: Answer '{Answer}', Time {Time} ms", part, answer, time.TotalMilliseconds);
             }
 
             if (aocHttpClient.IsConfigured && expectedTestAnswer == testAnswer && string.IsNullOrWhiteSpace(expectedAnswer))
@@ -95,7 +101,7 @@ namespace Jag.AdventOfCode.Runner
                 {
                     logger.LogInformation("ExpectedTestAnswer == TestAnswer and no Expected answer found. Submitting actual answer.");
                     var response = await aocHttpClient.SubmitAnswerAsync(solver.Year, solver.Day, part, answer);
-                    logger.LogInformation(response.ToMessage());
+                    logger.LogInformation(response.ToMessage(part));
                     if (response == SubmitResponse.Correct)
                     {
                         await answerRepository.CreateAnswerAsync(solver.Year, solver.Day, part, false, answer);

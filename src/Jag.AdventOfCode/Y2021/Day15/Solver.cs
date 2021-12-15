@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Jag.AdventOfCode.Utilities;
 using Priority_Queue;
 
 namespace Jag.AdventOfCode.Y2021.Day15
@@ -10,13 +11,7 @@ namespace Jag.AdventOfCode.Y2021.Day15
         public int Year => 2021;
 
         public int Day => 15;
-        private static readonly (int col, int row)[]  RelativeNeighbours = new (int col, int row)[]
-            {
-                (-1, 0), // down
-                (0, -1), // left
-                (0, 1), // up
-                (1, 0), // down
-            };
+
         public string SolvePart1(string input)
         {
             return FindShortestPath(ParseInput1(input)).ToString();
@@ -49,20 +44,21 @@ namespace Jag.AdventOfCode.Y2021.Day15
             int dequeues = 0;
             while (priorityQueue.Count != 0)
             {
-                var (row, col) = priorityQueue.Dequeue();
+                var position = priorityQueue.Dequeue();
+                var (row, col) = position;
                 dequeues++;
                 if (!unvisited.Contains((row, col)))
                     continue;
 
                 var currentScore = distances[row][col];
 
-                if ((row, col) == (lastRow, lastCol))
+                if (position == (lastRow, lastCol))
                 {
                     return currentScore;
                 }
-                var neighbours = RelativeNeighbours.Select(n => (row: n.row + row, col: n.col + col))
-                    .Where(x => x.col >= 0 && x.row >= 0 && x.col <= lastCol && x.row <= lastRow && unvisited.Contains((x.row, x.col)))
-                    .OrderBy(x => grid[x.row][x.col]);
+
+                var neighbours = grid.GetAdjacentNeighbours(position)
+                    .Where(x => unvisited.Contains((x.row, x.col)));
 
                 foreach (var (nrow, ncol) in neighbours)
                 {
@@ -73,7 +69,7 @@ namespace Jag.AdventOfCode.Y2021.Day15
                     }
                     priorityQueue.Enqueue((nrow, ncol), neighbourScore);
                 }
-                unvisited.Remove((row, col));
+                unvisited.Remove(position);
             }
             throw new Exception();
         }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Jag.AdventOfCode.Utilities;
 
 namespace Jag.AdventOfCode.Y2021.Day11
 {
@@ -64,34 +65,13 @@ namespace Jag.AdventOfCode.Y2021.Day11
             if (dumbo[i][k] == 10)
             {
                 flashes++;
-                var neighbours = GetNeighbours(dumbo, i, k);
+                var neighbours = dumbo.GetNeighbours((i, k));
                 foreach (var neighbour in neighbours)
                 {
-                    flashes += Increment(dumbo, neighbour.i, neighbour.k);
+                    flashes += Increment(dumbo, neighbour.row, neighbour.col);
                 }
             }
             return flashes;
-        }
-
-        private IEnumerable<(int i, int k)> GetNeighbours(int[][] dumbo, int i, int k)
-        {
-            int lastRow = dumbo.Length - 1;
-            int lastCol = dumbo[0].Length - 1;
-
-            var neighbours = new (int i, int k)[] 
-            {
-                (-1, -1),  (-1, 0), (-1, 1), 
-                (0, -1), (0, 1),
-                (1, -1), (1, 0), (1, 1)
-            };
-            foreach (var neighbour in neighbours.Select(n => (i: n.i + i, k: n.k + k)))
-            {
-                if (neighbour.i >= 0 && neighbour.i <= lastRow
-                    && neighbour.k >= 0 && neighbour.k <= lastCol)
-                {
-                    yield return (neighbour);
-                }
-            }
         }
 
         public string SolvePart2(string input)
