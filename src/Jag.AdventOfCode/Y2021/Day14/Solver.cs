@@ -13,8 +13,6 @@ namespace Jag.AdventOfCode.Y2021.Day14
 
         public string SolvePart1(string input)
         {
-            var b = int.MaxValue;
-            b = b + 1;
             return ApplyRules(input, 10);
         }
 

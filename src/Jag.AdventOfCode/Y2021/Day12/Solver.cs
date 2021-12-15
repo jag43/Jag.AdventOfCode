@@ -67,11 +67,6 @@ namespace Jag.AdventOfCode.Y2021.Day12
 
             return caves;
         }
-
-        private void AddNodes(Dictionary<string, Cave> nodes, string name, string linkedName)
-        {
-
-        }
     
         private void FindAllPathsPart1(Dictionary<string, Cave> nodes, List<List<Cave>> paths, List<Cave> currentPath, string currentNodeName)
         {
