@@ -65,10 +65,8 @@ namespace Jag.AdventOfCode.Runner
             var expectedTestAnswer = await answerRepository.GetExpectedAnswerAsync(solver.Year, solver.Day, part, true);
             if (expectedTestAnswer != null)
             {
-                string correct = expectedTestAnswer == testAnswer
-                    ? "✅"
-                    : "❌";
-                logger.LogInformation("Test Part {Part}: Answer: '{TestAnswer}' should be '{ExpectedTestAnswer}' " + correct + ", Time {Time} ms", part, expectedTestAnswer, testAnswer, testTime.TotalMilliseconds);
+                string correct = GetCorrectString(expectedTestAnswer, testAnswer);
+                logger.LogInformation("Test Part {Part}: Answer: '{TestAnswer}' should be '{ExpectedTestAnswer}' " + correct + ", Time {Time} ms", part, testAnswer, expectedTestAnswer, testTime.TotalMilliseconds);
             }
             else
             {
@@ -84,14 +82,12 @@ namespace Jag.AdventOfCode.Runner
             var expectedAnswer = await answerRepository.GetExpectedAnswerAsync(solver.Year, solver.Day, part, false);
             if (expectedAnswer != null)
             {
-                string correct = expectedAnswer == answer
-                    ? "✅"
-                    : "❌";
-                logger.LogInformation("Part {Part}: Answer '{Answer}' should be '{ExpectedAnswer}' " + correct + ", Time {Time} ms", part, expectedAnswer, answer, time.TotalMilliseconds);
+                string correct = GetCorrectString(answer, expectedAnswer);
+                logger.LogInformation("     Part {Part}: Answer: '{Answer}' should be '{ExpectedAnswer}' " + correct + ", Time {Time} ms", part, answer, expectedAnswer, time.TotalMilliseconds);
             }
             else
             {
-                logger.LogInformation("Part {Part}: Answer '{Answer}', Time {Time} ms", part, answer, time.TotalMilliseconds);
+                logger.LogInformation("     Part {Part}: Answer '{Answer}', Time {Time} ms", part, answer, time.TotalMilliseconds);
             }
 
             if (aocHttpClient.IsConfigured && expectedTestAnswer == testAnswer && string.IsNullOrWhiteSpace(expectedAnswer))
@@ -108,6 +104,13 @@ namespace Jag.AdventOfCode.Runner
                     }
                 }
             }
+        }
+
+        private static string GetCorrectString(string answer, string expectedAnswer)
+        {
+            return expectedAnswer == answer
+                ? "✅"
+                : "❌";
         }
     }
 }

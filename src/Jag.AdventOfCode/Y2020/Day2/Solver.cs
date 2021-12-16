@@ -13,25 +13,27 @@ namespace Jag.AdventOfCode.Y2020.Day2
         public string SolvePart1(string input)
         {
             var rows = ParseInput(input);
-            return rows.Count(p => p.IsValid).ToString();
-
+            return rows.Count(p => p.IsValid1).ToString();
         }
 
         public string SolvePart2(string input)
         {
-            throw new NotImplementedException();
+            var rows = ParseInput(input);
+            return rows.Count(p => p.IsValid2).ToString();
         }
     
         private IEnumerable<PasswordPolicy> ParseInput(string input)
         {
-            foreach(var line in input.Split(Environment.NewLine))
+            foreach(var line in input.Split(Environment.NewLine, options: StringSplitOptions.RemoveEmptyEntries))
             {
+                var words = line.Split(" ", options: StringSplitOptions.RemoveEmptyEntries);
+                var numbers = words[0].Split("-", options: StringSplitOptions.RemoveEmptyEntries);
                 yield return new PasswordPolicy()
                 {
-                    Min = int.Parse(line[0].ToString()),
-                    Max = int.Parse(line[2].ToString()),
-                    RequiredChar = line[4],
-                    Password = line.Substring(7)
+                    FirstNumber = int.Parse(numbers[0]),
+                    SecondNumber = int.Parse(numbers[1]),
+                    RequiredChar = words[1][0],
+                    Password = words[2]
                 };
             }
         }

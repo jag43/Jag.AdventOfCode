@@ -103,8 +103,6 @@ namespace Jag.AdventOfCode.Y2021.Day11
 
                 var flashesThisStep = dumbo.SelectMany(i => i).Where(i => i == 0).Count();
                 Console.WriteLine($"After Step:{step}, cum flashes: {flashes}, 0s this step: {flashesThisStep}");
-                // WriteToConsole(dumbo);
-                // Console.WriteLine();
                 if (dumboCount == flashesThisStep)
                 {
                     return step.ToString();
