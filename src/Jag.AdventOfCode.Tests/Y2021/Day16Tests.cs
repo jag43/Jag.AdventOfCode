@@ -18,28 +18,28 @@ namespace Jag.AdventOfCode.Tests.Y2021
         private new Solver solver => (Solver)base.solver;
 
         //[Part(1), Input(true)]
-        //[Fact]
+        [Fact]
         public async Task Part1Test()
         {
             await base.Test(solver.Year, solver.Day, 1, true);
         }
 
         //[Part(1), Input(false)]
-        //[Fact]
+        [Fact]
         public async Task Part1()
         {
             await base.Test(solver.Year, solver.Day, 1, false);
         }
 
         //[Part(2), Input(true)]
-        // [Fact]
+        [Fact]
         public async Task Part2Test()
         {
             await base.Test(solver.Year, solver.Day, 2, true);
         }
 
         //[Part(2), Input(false)]
-        // [Fact]
+        [Fact]
         public async Task Part2()
         {
             await base.Test(solver.Year, solver.Day, 2, false);
@@ -53,6 +53,22 @@ namespace Jag.AdventOfCode.Tests.Y2021
         public void Part1AddtionalTest(string input, string versionSum)
         {
             var answer = solver.SolvePart1(input);
+
+            answer.ShouldBe(versionSum);
+        }
+
+        [Theory]
+        [InlineData("C200B40A82", "3")]
+        [InlineData("04005AC33890", "54")]
+        [InlineData("880086C3E88112", "7")]
+        [InlineData("CE00C43D881120", "9")]
+        [InlineData("D8005AC2A8F0", "1")]
+        [InlineData("F600BC2D8F", "0")]
+        [InlineData("9C005AC2F8F0", "0")]
+        [InlineData("9C0141080250320F1802104A08", "1")]
+        public void Part2AddtionalTest(string input, string versionSum)
+        {
+            var answer = solver.SolvePart2(input);
 
             answer.ShouldBe(versionSum);
         }

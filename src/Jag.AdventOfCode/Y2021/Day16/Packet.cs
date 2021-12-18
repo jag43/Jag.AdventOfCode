@@ -79,6 +79,8 @@ namespace Jag.AdventOfCode.Y2021.Day16
 
         public TypeId Type { get; }
 
+        public abstract long Evaluate();
+
         public IEnumerable<Packet> FindAllSubPackets(List<Packet> list = null)
         {
             if (list == null) list = new List<Packet>();
@@ -109,6 +111,8 @@ namespace Jag.AdventOfCode.Y2021.Day16
         }
 
         public long Value { get; }
+
+        public override long Evaluate() => Value;
     }
 
     public class OperatorPacket
@@ -120,5 +124,36 @@ namespace Jag.AdventOfCode.Y2021.Day16
         }
 
         public List<Packet> SubPackets { get; } = new List<Packet>();
+
+        public override long Evaluate()
+        {
+            switch(Type)
+            {
+                case TypeId.Sum:
+                    return SubPackets.Sum(p => p.Evaluate());
+                case TypeId.Product:
+                    return SubPackets.Aggregate(1L, (seed, p) => seed * p.Evaluate());
+                case TypeId.Min:
+                    return SubPackets.Min(p => p.Evaluate());
+                case TypeId.Max:
+                    return SubPackets.Max(p => p.Evaluate());
+                case TypeId.GreaterThan:
+                    if (SubPackets.Count != 2) throw new Exception("GreaterThan packet does not have exactly 2 sub packets.");
+                    var gtFirst = SubPackets[0].Evaluate();
+                    var gtSecond = SubPackets[1].Evaluate();
+                    return gtFirst > gtSecond ? 1 : 0;
+                case TypeId.LessThan:
+                    if (SubPackets.Count != 2) throw new Exception("GreaterThan packet does not have exactly 2 sub packets.");
+                    var ltFirst = SubPackets[0].Evaluate();
+                    var ltSecond = SubPackets[1].Evaluate();
+                    return ltFirst < ltSecond ? 1 : 0;
+                case TypeId.Equals:
+                    if (SubPackets.Count != 2) throw new Exception("GreaterThan packet does not have exactly 2 sub packets.");
+                    var eqFirst = SubPackets[0].Evaluate();
+                    var eqSecond = SubPackets[1].Evaluate();
+                    return eqFirst == eqSecond ? 1 : 0;
+                default: throw new Exception($"Invalid Type {Type}, header '{Header}'");
+            }
+        }
     }
 }

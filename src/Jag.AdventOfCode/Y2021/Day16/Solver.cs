@@ -13,16 +13,17 @@ namespace Jag.AdventOfCode.Y2021.Day16
         public string SolvePart1(string input)
         {
             var binaryString = ParseInput(input);
-            var packet = Packet.Parse(binaryString);
-            return (packet.Packet.Version + packet.Packet
-                    .FindAllSubPackets()
-                    .Sum(p => p.Version))
-                .ToString();
+            var (packet, length) = Packet.Parse(binaryString);
+            var version = packet.Version;
+            var childVersionSum = packet.FindAllSubPackets().Sum(p => p.Version);
+            return (version + childVersionSum).ToString();
         }
 
         public string SolvePart2(string input)
         {
-            throw new NotImplementedException();
+            var binaryString = ParseInput(input);
+            var (packet, _) = Packet.Parse(binaryString);
+            return packet.Evaluate().ToString();
         }
 
         public string ParseInput(string input)
