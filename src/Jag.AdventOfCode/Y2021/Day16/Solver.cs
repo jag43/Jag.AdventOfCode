@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Text;
 
 namespace Jag.AdventOfCode.Y2021.Day16
@@ -11,8 +12,12 @@ namespace Jag.AdventOfCode.Y2021.Day16
 
         public string SolvePart1(string input)
         {
-            var packet = ParseInput(input);
-            return packet.Packet.Version.ToString();       
+            var binaryString = ParseInput(input);
+            var packet = Packet.Parse(binaryString);
+            return (packet.Packet.Version + packet.Packet
+                    .FindAllSubPackets()
+                    .Sum(p => p.Version))
+                .ToString();
         }
 
         public string SolvePart2(string input)
@@ -20,7 +25,7 @@ namespace Jag.AdventOfCode.Y2021.Day16
             throw new NotImplementedException();
         }
 
-        public (Packet Packet, int Length) ParseInput(string input)
+        public string ParseInput(string input)
         {
             var sb = new StringBuilder();
             foreach (var c in input)
@@ -42,12 +47,12 @@ namespace Jag.AdventOfCode.Y2021.Day16
                     'D' => "1101",
                     'E' => "1110",
                     'F' => "1111",
+                    '\n' => "",
+                    '\r' => "",
                     _ => throw new Exception("Invalid input")
                 });
             }
-            var binaryString = sb.ToString();
-
-            return Packet.Parse(binaryString);
+            return sb.ToString();
         }
 
 
