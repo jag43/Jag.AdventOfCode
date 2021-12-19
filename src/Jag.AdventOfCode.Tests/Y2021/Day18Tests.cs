@@ -141,14 +141,49 @@ namespace Jag.AdventOfCode.Tests.Y2021
         }
 
         [Theory]
-        [InlineData("[[[[[9,8],1],2],3],4]", new long[]{ 0, 9, 2, 3, 4})]
+        [InlineData("[[[[[9,8],1],2],3],4]", new long[]{ 0, 9, 2, 3, 4 })]
+        [InlineData("[7,[6,[5,[4,[3,2]]]]]", new long[]{ 7, 6, 5, 7, 0 })]
+        [InlineData("[[6,[5,[4,[3,2]]]],1]", new long[]{ 6, 5, 7, 0, 3 })]
+        [InlineData("[[3,[2,[1,[7,3]]]],[6,[5,[4,[3,2]]]]]", new long[]{ 3, 2, 8, 0, 9, 5, 4, 3, 2 })]
+        [InlineData("[[3,[2,[8,0]]],[9,[5,[4,[3,2]]]]]", new long[]{ 3, 2, 8, 0, 9, 5, 7, 0 })]
         public void ExplodeTests(string input, IEnumerable<long> expectedReducedNumbers)
         {
             var nodes = solver.ParseInput(input);
             var rootNode = nodes[0];
-            var leftMost = rootNode.GetLeftMostNode().ShouldBeOfType<NumberTreeNumberNode>();
-            var newNode = leftMost.Parent.Explode();
-            leftMost.Parent.Parent.Replace(leftMost.Parent, newNode);
+
+            var (node, action) = rootNode.GetNextAction();
+
+            if (action != ReduceAction.Explode)
+            {
+                throw new System.Exception("Action is not explode");
+            }
+
+            var newNode = node.Parent.Explode();
+            node.Parent.Parent.Replace(node.Parent, newNode);
+            
+            rootNode.GetNumbersFromLeftToRight().Select(n => n.Value).ToList().ShouldBe(expectedReducedNumbers);
+        }
+
+        [Theory]
+        [InlineData(10L, new long[]{ 5, 5, 0 })]
+        [InlineData(11L, new long[]{ 5, 6, 0 })]
+        [InlineData(12L, new long[]{ 6, 6, 0 })]
+        public void SplitTests(long left, IEnumerable<long> expectedReducedNumbers)
+        {
+            var rootNode = new NumberTreePairNode(left, 0);
+            rootNode.Left.Parent = rootNode;
+            rootNode.Right.Parent = rootNode;
+
+            var (node, action) = rootNode.GetNextAction();
+
+            if (action != ReduceAction.Split)
+            {
+                throw new System.Exception("Action is not explode");
+            }
+
+            var newNode = node.Split();
+            node.Parent.Replace(node, newNode);
+            
             rootNode.GetNumbersFromLeftToRight().Select(n => n.Value).ToList().ShouldBe(expectedReducedNumbers);
         }
     }

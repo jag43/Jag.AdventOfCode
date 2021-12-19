@@ -66,7 +66,7 @@ namespace Jag.AdventOfCode.Y2021.Day18
             var nodes = GetNumbersFromLeftToRight();
             foreach (var numberNode in nodes)
             {
-                if (numberNode?.Parent?.Parent?.Parent?.Parent != null
+                if (numberNode?.Parent?.Parent?.Parent?.Parent?.Parent != null
                     && numberNode.Parent.Left is NumberTreeNumberNode
                     && numberNode.Parent.Right is NumberTreeNumberNode)
                 {
