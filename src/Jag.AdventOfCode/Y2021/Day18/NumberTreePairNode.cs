@@ -96,5 +96,13 @@ namespace Jag.AdventOfCode.Y2021.Day18
         {
             return $"[{Left},{Right}]";
         }
+
+        public override NumberTreeNode Clone()
+        {
+            var left = Left.Clone();
+            var right = Right.Clone();
+
+            return new NumberTreePairNode(left, right);
+        }
     }
 }

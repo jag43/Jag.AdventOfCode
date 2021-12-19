@@ -95,5 +95,12 @@ namespace Jag.AdventOfCode.Y2021.Day18
         {
             return $"{Value}";
         }
+
+        public override NumberTreeNode Clone()
+        {
+            var node = new NumberTreeNumberNode(Parent, Value);
+
+            return node;
+        }
     }
 }

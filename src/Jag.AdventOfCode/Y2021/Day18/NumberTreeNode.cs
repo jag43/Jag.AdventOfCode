@@ -37,10 +37,12 @@ namespace Jag.AdventOfCode.Y2021.Day18
 
         public static NumberTreeNode operator + (NumberTreeNode left, NumberTreeNode right)
         {
-            var result = new NumberTreePairNode(left, right);
+            var result = new NumberTreePairNode(left.Clone(), right.Clone());
             result.Reduce();
             return result;
         }
+
+        public abstract NumberTreeNode Clone();
 
         public void Reduce()
         {
