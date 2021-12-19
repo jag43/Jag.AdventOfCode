@@ -21,15 +21,6 @@ if (!(Test-Path $TestInputPath)) {
     Write-Warning "Test input file already exists"
 }
 
-# Create Input
-$InputPath = "../Jag.AdventOfCode/Input/${Year}Day${Day}.txt"
-if (!(Test-Path $InputPath)) {
-    New-Item -Path $InputPath -Value "" | Out-Null
-}
-else {
-    Write-Warning "Input file already exists"
-}
-
 # Create Part 1 Test Answer
 $Part1TestAnswerPath = "../Jag.AdventOfCode/Answers/${Year}Day${Day}Part1Test.txt"
 if (Test-Path $Part1TestAnswerPath) {

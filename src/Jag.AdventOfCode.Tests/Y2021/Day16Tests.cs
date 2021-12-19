@@ -89,7 +89,7 @@ namespace Jag.AdventOfCode.Tests.Y2021
             literalPacket.Value.ShouldBe(expectedValue);
         }
 
-        [Theory]                                                                       //56)]
+        [Theory]
         [InlineData("00111000000000000110111101000101001010010001001000000000", 1, 6, 2, 49)]
         public void Part1AdditionalOperatorPacketTests(string input, int expectedVersion, int expectedTypeId, int expectedSubPacketCount, int expectedLength)
         {
