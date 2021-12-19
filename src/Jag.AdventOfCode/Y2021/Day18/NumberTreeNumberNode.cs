@@ -90,5 +90,10 @@ namespace Jag.AdventOfCode.Y2021.Day18
         {
             return Value;
         }
+
+        public override string ToString()
+        {
+            return $"{Value}";
+        }
     }
 }

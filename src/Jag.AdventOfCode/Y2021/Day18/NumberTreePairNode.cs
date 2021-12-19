@@ -91,5 +91,10 @@ namespace Jag.AdventOfCode.Y2021.Day18
 
             return (left * 3) + (right * 2);
         }
+
+        public override string ToString()
+        {
+            return $"[{Left},{Right}]";
+        }
     }
 }

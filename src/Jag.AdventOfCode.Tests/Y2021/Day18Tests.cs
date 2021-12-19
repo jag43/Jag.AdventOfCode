@@ -27,25 +27,25 @@ namespace Jag.AdventOfCode.Tests.Y2021
         }
 
         //[Part(1), Input(false)]
-        // [Fact]
-        // public async Task Part1()
-        // {
-        //     await base.Test(solver.Year, solver.Day, 1, false);
-        // }
+        [Fact]
+        public async Task Part1()
+        {
+            await base.Test(solver.Year, solver.Day, 1, false);
+        }
 
-        // //[Part(2), Input(true)]
-        // [Fact]
-        // public async Task Part2Test()
-        // {
-        //     await base.Test(solver.Year, solver.Day, 2, true);
-        // }
+        //[Part(2), Input(true)]
+        [Fact]
+        public async Task Part2Test()
+        {
+            await base.Test(solver.Year, solver.Day, 2, true);
+        }
 
-        // //[Part(2), Input(false)]
-        // [Fact]
-        // public async Task Part2()
-        // {
-        //     await base.Test(solver.Year, solver.Day, 2, false);
-        // }
+        //[Part(2), Input(false)]
+        [Fact]
+        public async Task Part2()
+        {
+            await base.Test(solver.Year, solver.Day, 2, false);
+        }
 
         [Theory]
         [InlineData("[[1,2],[[3,4],5]]", "143")]
@@ -61,92 +61,30 @@ namespace Jag.AdventOfCode.Tests.Y2021
             answer.ShouldBe(expectedAnswer);
         }
 
-        [Fact]
-        public void ParseTest1()
+        [Theory]
+        [InlineData("[1,2]")]
+        [InlineData("[[1,2],3]")]
+        [InlineData("[9,[8,7]]")]
+        [InlineData("[[1,9],[8,5]]")]
+        [InlineData("[[[[1,2],[3,4]],[[5,6],[7,8]]],9]")]
+        [InlineData("[[[9,[3,8]],[[0,9],6]],[[[3,7],[4,9]],3]]")]
+        [InlineData("[[[[1,3],[5,3]],[[1,3],[8,7]]],[[[4,9],[6,9]],[[8,2],[7,3]]]]")]
+
+        public void ParseTests(string input)
         {
-            string input = "[1,2]";
             var nodes = solver.ParseInput(input);
             var rootNode = nodes.ShouldHaveSingleItem<NumberTreeNode>();
-            var rootPair = rootNode.ShouldBeOfType<NumberTreePairNode>();
-            rootPair.Left.ShouldBeOfType<NumberTreeNumberNode>().Value.ShouldBe(1);
-            rootPair.Right.ShouldBeOfType<NumberTreeNumberNode>().Value.ShouldBe(2);
-        }
-
-        [Fact]
-        public void ParseTest2()
-        {
-            string input = "[[1,2],3]";
-            var nodes = solver.ParseInput(input);
-            var rootNode = nodes.ShouldHaveSingleItem<NumberTreeNode>();
-            var rootPair = rootNode.ShouldBeOfType<NumberTreePairNode>();
-            rootPair.Right.ShouldBeOfType<NumberTreeNumberNode>().Value.ShouldBe(3);
-
-            var leftPair = rootPair.Left.ShouldBeOfType<NumberTreePairNode>();
-            leftPair.Left.ShouldBeOfType<NumberTreeNumberNode>().Value.ShouldBe(1);
-            leftPair.Right.ShouldBeOfType<NumberTreeNumberNode>().Value.ShouldBe(2);
-        }
-
-        [Fact]
-        public void ParseTest3()
-        {
-            string input = "[9,[8,7]]";
-            var nodes = solver.ParseInput(input);
-            var rootNode = nodes.ShouldHaveSingleItem<NumberTreeNode>();
-            var rootPair = rootNode.ShouldBeOfType<NumberTreePairNode>();
-            rootPair.Left.ShouldBeOfType<NumberTreeNumberNode>().Value.ShouldBe(9);
-
-            var rightPair = rootPair.Right.ShouldBeOfType<NumberTreePairNode>();
-            rightPair.Left.ShouldBeOfType<NumberTreeNumberNode>().Value.ShouldBe(8);
-            rightPair.Right.ShouldBeOfType<NumberTreeNumberNode>().Value.ShouldBe(7);
-        }
-
-        [Fact]
-        public void ParseTest4()
-        {
-            string input = "[[1,9],[8,5]]";
-            var nodes = solver.ParseInput(input);
-            var rootNode = nodes.ShouldHaveSingleItem<NumberTreeNode>();
-            var rootPair = rootNode.ShouldBeOfType<NumberTreePairNode>();
-
-            var leftPair = rootPair.Left.ShouldBeOfType<NumberTreePairNode>();
-            leftPair.Left.ShouldBeOfType<NumberTreeNumberNode>().Value.ShouldBe(1);
-            leftPair.Right.ShouldBeOfType<NumberTreeNumberNode>().Value.ShouldBe(9);
-
-            var rightPair = rootPair.Right.ShouldBeOfType<NumberTreePairNode>();
-            rightPair.Left.ShouldBeOfType<NumberTreeNumberNode>().Value.ShouldBe(8);
-            rightPair.Right.ShouldBeOfType<NumberTreeNumberNode>().Value.ShouldBe(5);
-        }
-
-        [Fact]
-        public void ParseTest5()
-        {
-            string input = "[[[[1,2],[3,4]],[[5,6],[7,8]]],9]";
-            var nodes = solver.ParseInput(input);
-            var rootNode = nodes.ShouldHaveSingleItem<NumberTreeNode>();
-            var rootPair = rootNode.ShouldBeOfType<NumberTreePairNode>();
-
-            var leftNode = rootPair.GetLeftMostNode();
-            leftNode.Value.ShouldBe(1);
-            leftNode.Parent.Right.ShouldBeOfType<NumberTreeNumberNode>().Value.ShouldBe(2);
-
-            var threeFourPair = leftNode.Parent.Parent.Right.ShouldBeOfType<NumberTreePairNode>();
-            threeFourPair.Left.ShouldBeOfType<NumberTreeNumberNode>().Value.ShouldBe(3);
-            threeFourPair.Right.ShouldBeOfType<NumberTreeNumberNode>().Value.ShouldBe(4);
             
-            rootPair.Right.ShouldBeOfType<NumberTreeNumberNode>().Value.ShouldBe(9);
-            var rightNode = rootPair.GetRightMostNode();
-            rightNode.Value.ShouldBe(9);
-
-            rootPair.GetNumbersFromLeftToRight().Select(n => n.Value).ShouldBe(new long[] {1, 2, 3, 4, 5, 6, 7, 8, 9});
+            rootNode.ToString().ShouldBe(input);
         }
 
         [Theory]
-        [InlineData("[[[[[9,8],1],2],3],4]", new long[]{ 0, 9, 2, 3, 4 })]
-        [InlineData("[7,[6,[5,[4,[3,2]]]]]", new long[]{ 7, 6, 5, 7, 0 })]
-        [InlineData("[[6,[5,[4,[3,2]]]],1]", new long[]{ 6, 5, 7, 0, 3 })]
-        [InlineData("[[3,[2,[1,[7,3]]]],[6,[5,[4,[3,2]]]]]", new long[]{ 3, 2, 8, 0, 9, 5, 4, 3, 2 })]
-        [InlineData("[[3,[2,[8,0]]],[9,[5,[4,[3,2]]]]]", new long[]{ 3, 2, 8, 0, 9, 5, 7, 0 })]
-        public void ExplodeTests(string input, IEnumerable<long> expectedReducedNumbers)
+        [InlineData("[[[[[9,8],1],2],3],4]", "[[[[0,9],2],3],4]")]
+        [InlineData("[7,[6,[5,[4,[3,2]]]]]", "[7,[6,[5,[7,0]]]]")]
+        [InlineData("[[6,[5,[4,[3,2]]]],1]", "[[6,[5,[7,0]]],3]")]
+        [InlineData("[[3,[2,[1,[7,3]]]],[6,[5,[4,[3,2]]]]]", "[[3,[2,[8,0]]],[9,[5,[4,[3,2]]]]]")]
+        [InlineData("[[3,[2,[8,0]]],[9,[5,[4,[3,2]]]]]", "[[3,[2,[8,0]]],[9,[5,[7,0]]]]")]
+        public void ExplodeTests(string input, string expectedReducedNumbers)
         {
             var nodes = solver.ParseInput(input);
             var rootNode = nodes[0];
@@ -161,14 +99,14 @@ namespace Jag.AdventOfCode.Tests.Y2021
             var newNode = node.Parent.Explode();
             node.Parent.Parent.Replace(node.Parent, newNode);
             
-            rootNode.GetNumbersFromLeftToRight().Select(n => n.Value).ToList().ShouldBe(expectedReducedNumbers);
+            rootNode.ToString().ShouldBe(expectedReducedNumbers);
         }
 
         [Theory]
-        [InlineData(10L, new long[]{ 5, 5, 0 })]
-        [InlineData(11L, new long[]{ 5, 6, 0 })]
-        [InlineData(12L, new long[]{ 6, 6, 0 })]
-        public void SplitTests(long left, IEnumerable<long> expectedReducedNumbers)
+        [InlineData(10L, "[[5,5],0]")]
+        [InlineData(11L, "[[5,6],0]")]
+        [InlineData(12L, "[[6,6],0]")]
+        public void SplitTests(long left, string expectedReducedNumbers)
         {
             var rootNode = new NumberTreePairNode(left, 0);
             rootNode.Left.Parent = rootNode;
@@ -184,7 +122,7 @@ namespace Jag.AdventOfCode.Tests.Y2021
             var newNode = node.Split();
             node.Parent.Replace(node, newNode);
             
-            rootNode.GetNumbersFromLeftToRight().Select(n => n.Value).ToList().ShouldBe(expectedReducedNumbers);
+            rootNode.ToString().ShouldBe(expectedReducedNumbers);
         }
     }
 }
