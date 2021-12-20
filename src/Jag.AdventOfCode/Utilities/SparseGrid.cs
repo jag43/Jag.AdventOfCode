@@ -6,66 +6,59 @@ using System.Text;
 
 namespace Jag.AdventOfCode.Utilities
 {
-    public class SparseGrid<T>
+    public class SparseGrid
         : ICloneable
     {
         public SparseGrid()
         {   
         }
 
-        private SparseGrid(Dictionary<(int Row, int Col), T> points)
+        private SparseGrid(HashSet<(int Row, int Col)> points)
         {
             this.points = points;
         }
 
-        private readonly Dictionary<(int Row, int Col), T> points = new();
+        private readonly HashSet<(int Row, int Col)> points = new();
 
-        public IEnumerable<(int Row, int Col, T Value)> EnumeratePoints()
+        public IEnumerable<(int Row, int Col)> EnumeratePoints()
         {
-            foreach (var key in points.Keys)
+            foreach (var point in points)
             {
-                yield return (key.Row, key.Col, points[key]);
+                yield return (point.Row, point.Col);
             }
         }
 
-        public int MaxRow => points.Keys.Any() ? points.Keys.Max(key => key.Row) : 0;
+        public int MaxRow { get; private set; }
 
-        public int MinRow => points.Keys.Any() ? points.Keys.Min(key => key.Row) : 0;
+        public int MinRow { get; private set; }
 
-        public int MaxCol => points.Keys.Any() ? points.Keys.Max(key => key.Col) : 0;
+        public int MaxCol { get; private set; }
 
-        public int MinCol => points.Keys.Any() ? points.Keys.Min(key => key.Col) : 0;
+        public int MinCol { get; private set; }
         
-        public T this[(int row, int col) key] => this[key.row, key.col];
+        public void Add((int row, int col) point) => Add(point.row, point.col);
 
-        public T this[int row, int col] 
+        public void Add(int row, int col)
         {
-            get
+            var point = (row, col);
+            if (points.Add(point))
             {
-                if (points.TryGetValue((row, col), out T value))
-                {
-                    return value;
-                }
-                else
-                {
-                    return default;
-                }
-            }
-            set
-            {
-                var key = (row, col);
-                if (!default(T).Equals(value))
-                {
-                    points[key] = value;
-                }
-                else if (points.ContainsKey(key))
-                {
-                    points.Remove(key);
-                }
+                UpdateBounds(point);
             }
         }
 
-        public bool HasNeighbours((int row, int col) key) => HasNeighbours(key.row, key.col);
+        public void Remove((int row, int col) point) => Remove(point.row, point.col);
+
+        public void Remove(int row, int col)
+        {
+            var point = (row, col);
+            if (points.Remove(point))
+            {
+                RecalculateBounds();
+            }
+        }
+
+        public bool HasNeighbours((int row, int col) point) => HasNeighbours(point.row, point.col);
 
         public bool HasNeighbours(int row, int col)
         {
@@ -77,7 +70,7 @@ namespace Jag.AdventOfCode.Utilities
                 foreach (int colOffset in colOffsets)
                 {
                     var neighbourKey = (row + rowOffset, col + colOffset);
-                    if (points.ContainsKey(neighbourKey))
+                    if (points.Contains(neighbourKey))
                     {
                         return true;
                     }
@@ -87,25 +80,26 @@ namespace Jag.AdventOfCode.Utilities
             return false;
         }
 
-        public SparseGrid<T> Bound(int maxRowBounds, int minRowBounds, int maxColBounds, int minColBounds)
+        private void UpdateBounds((int row, int col) point)
         {
-            var inBoundPoints = new Dictionary<(int, int), T>();
+            var (row, col) = point;
+            if (row > MaxRow) MaxRow = row;
+            if (row < MinRow) MinRow = row;
+            if (col > MaxCol) MaxCol = col;
+            if (col < MinCol) MinCol = col;
+        }
+
+        private void RecalculateBounds()
+        {
             foreach (var point in points)
             {
-                var key = point.Key;
-                if (key.Row < maxRowBounds && key.Row > minRowBounds 
-                    && key.Col < maxColBounds && key.Col > minColBounds)
-                {
-                    inBoundPoints.Add(point.Key, point.Value);
-                }
+                UpdateBounds(point);
             }
-
-            return new(inBoundPoints);
         }
 
         public object Clone()
         {
-            return new SparseGrid<T>(new Dictionary<(int Row, int Col), T>(points));
+            return new SparseGrid(new HashSet<(int Row, int Col)>(points));
         }
     }
 }
