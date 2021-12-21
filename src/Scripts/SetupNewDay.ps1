@@ -1,7 +1,7 @@
 param (
-    [Parameter(Mandatory=$true)]
+    [Parameter(Mandatory=$true)][Alias('y')]
     [int]$Year,
-    [Parameter(Mandatory=$true)]
+    [Parameter(Mandatory=$true)][Alias('d')]
     [int]$Day,
     [Parameter(Mandatory=$true)]
     [string]$Part1TestAnswer,

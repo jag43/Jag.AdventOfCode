@@ -25,8 +25,7 @@ namespace Jag.AdventOfCode.Tests.Y2021
             
             foreach (var s in scanners.Skip(1))
             {
-                Rotation.NinetyDegreeRotations.Count(rotation => scanner1.OverlapsAtRotation(s, rotation))
-                    .ShouldBe(1);
+                scanner1.Overlaps(s).ShouldNotBeNull();
             }
         }
 
