@@ -1,16 +1,13 @@
+using System;
+
 namespace Jag.AdventOfCode.Y2021.Day19
 {
-    public class Beacon
+    public record Beacon (int X, int Y, int Z)
     {
-        public Beacon(int x, int y, int z)
+        public Beacon RotateAroundScanner(Func<int, int, int, (int X, int Y, int Z)> rotation)
         {
-            X = x;
-            Y = y;
-            Z = z;
+            var (x, y, z) = rotation(X, Y, Z);
+            return new Beacon(x, y, z);
         }
-
-        public int X { get; set; }
-        public int Y { get; set; }
-        public int Z { get; set; }
     }
 }

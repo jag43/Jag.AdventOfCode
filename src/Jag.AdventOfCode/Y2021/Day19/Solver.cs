@@ -30,11 +30,17 @@ namespace Jag.AdventOfCode.Y2021.Day19
                 {
                     Number =  int.Parse(scannerLines[0].Substring(12, 2).Trim())
                 };
-                scanner.Beacons.AddRange(scannerLines.Skip(1).Select(line => 
+
+                var beacons = scannerLines.Skip(1).Select(line => 
                 {
                     var xyz = line.Split(",").Select(s => int.Parse(s)).ToArray();
                     return new Beacon(xyz[0], xyz[1], xyz[2]);
-                }));
+                });
+
+                foreach (var beacon in beacons)
+                {
+                    scanner.Beacons.Add(beacon);
+                }
 
                 yield return scanner;
             }
