@@ -9,5 +9,10 @@ namespace Jag.AdventOfCode.Y2021.Day19
             var (x, y, z) = rotation(X, Y, Z);
             return new Beacon(x, y, z);
         }
+
+        public Beacon MoveBeacon(int x, int y, int z)
+        {
+            return new Beacon(X + x, Y + y, Z + z);
+        }
     }
 }

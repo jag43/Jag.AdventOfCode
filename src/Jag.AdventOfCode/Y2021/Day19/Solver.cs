@@ -12,7 +12,22 @@ namespace Jag.AdventOfCode.Y2021.Day19
 
         public string SolvePart1(string input)
         {
-            throw new NotImplementedException();
+            var scanners = ParseInput(input);
+
+            List<(int, int)> scannerOverlaps = new();
+
+            foreach (var scanner1 in scanners)
+            {
+                foreach (var scanner2 in scanners.Where(s => s.Number != scanner1.Number))
+                {
+                    if (scanner1.Overlaps(scanner2) != null)
+                    {
+                        scannerOverlaps.Add((scanner1.Number, scanner2.Number));
+                    }
+                }
+            }
+
+            return "";
         }
 
         public string SolvePart2(string input)

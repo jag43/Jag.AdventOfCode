@@ -21,14 +21,14 @@ namespace Jag.AdventOfCode.Y2021.Day19
                     var rotatedScanner = scanner.Rotate(rotation);
                     foreach(var otherBeacon in rotatedScanner.Beacons)
                     {
-                        var movedScanner = rotatedScanner.AlignBeacons(otherBeacon, thisBeacon);
+                        var movedScanner = rotatedScanner.AlignPositionWithBeacon(otherBeacon, thisBeacon);
                         var matchingBeacons = this.Beacons.Join(
                             movedScanner.Beacons,
                             b => b,
                             b => b,
                             (l, r) => (l, r));
                         var matchingBeaconsCount = matchingBeacons.Count();
-                        if (matchingBeaconsCount >= 12 
+                        if (matchingBeaconsCount >= 12
                             || matchingBeaconsCount == this.Beacons.Count
                             || matchingBeaconsCount == scanner.Beacons.Count)
                         {
@@ -41,9 +41,23 @@ namespace Jag.AdventOfCode.Y2021.Day19
             return null;
         }
 
-        public Scanner AlignBeacons(Beacon otherBeacon, Beacon thisBeacon)
+        public Scanner AlignPositionWithBeacon(Beacon otherBeacon, Beacon thisBeacon)
         {
-            throw new NotImplementedException();
+            return MoveScanner(otherBeacon.X - thisBeacon.X,
+                otherBeacon.Y - thisBeacon.Y,
+                otherBeacon.Z - thisBeacon.Z);
+        }
+
+        private Scanner MoveScanner(int x, int y, int z)
+        {
+            var scanner = new Scanner() { Number = Number };
+
+            foreach (var beacon in Beacons)
+            {
+                scanner.Beacons.Add(beacon.MoveBeacon(x, y, z));
+            }
+
+            return scanner;
         }
 
         private Scanner Rotate(Func<int, int, int, (int X, int Y, int Z)> rotation)
