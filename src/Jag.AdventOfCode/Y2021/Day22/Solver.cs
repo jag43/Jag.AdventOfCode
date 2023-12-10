@@ -16,13 +16,13 @@ namespace Jag.AdventOfCode.Y2021.Day22
             var grid = new HashSet<(int, int, int)>();
             foreach (var line in ParseInput(input).WhereXYZInGridOf(50))
             {
-                Console.WriteLine("Starting line " + line);
+                // Console.WriteLine("Starting line " + line);
                 for (int x = line.X.Min; x <= line.X.Max; x++)
                 {
                     if (x > 50) 
                     {
-                        Console.WriteLine(line);
-                        Console.WriteLine((x));
+                        // Console.WriteLine(line);
+                        // Console.WriteLine((x));
                         return "";
                     }
                     //Console.WriteLine("X: " + x);
@@ -30,8 +30,8 @@ namespace Jag.AdventOfCode.Y2021.Day22
                     {
                         if (y > 50) 
                         {
-                            Console.WriteLine(line);
-                            Console.WriteLine((x,y));
+                            // Console.WriteLine(line);
+                            // Console.WriteLine((x,y));
                             return "";
                         }
                         //Console.WriteLine("Y: " + y);
@@ -39,8 +39,8 @@ namespace Jag.AdventOfCode.Y2021.Day22
                         {
                             if (z > 50) 
                             {
-                                Console.WriteLine(line);
-                                Console.WriteLine((x,y,z));
+                                // Console.WriteLine(line);
+                                // Console.WriteLine((x,y,z));
                                 return "";
                             }
                             //Console.WriteLine("Z: " + z);
@@ -64,7 +64,7 @@ namespace Jag.AdventOfCode.Y2021.Day22
             var grid = new HashSet<(int, int, int)>();
             foreach (var line in ParseInput(input))
             {
-                Console.WriteLine("Starting line " + line);
+                // Console.WriteLine("Starting line " + line);
                 for (int x = line.X.Min; x <= line.X.Max; x++)
                 {
                     //Console.WriteLine("X: " + x);
