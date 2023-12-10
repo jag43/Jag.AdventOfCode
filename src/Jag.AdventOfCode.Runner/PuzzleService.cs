@@ -29,15 +29,9 @@ namespace Jag.AdventOfCode.Runner
                 logger.LogWarning("No AoC session cookie - cannot get input or submit results");
             }
 
-            ISolver solver = new Y2023.Day1.Solver();
+            ISolver solver = new Y2023.Day2.Solver();
 
-            var testInput = @"two1nine
-eightwothree
-abcone2threexyz
-xtwone3four
-4nineeightseven2
-zoneight234
-7pqrstsixteen";// wait inputRepository.GetInputAsync(solver.Year, solver.Day, true);
+            var testInput = await inputRepository.GetInputAsync(solver.Year, solver.Day, true);
             var input = await inputRepository.GetInputAsync(solver.Year, solver.Day, false);
 
             if (aocHttpClient.IsConfigured && string.IsNullOrWhiteSpace(input))
@@ -46,7 +40,7 @@ zoneight234
                 await inputRepository.CreateInputAsync(solver.Year, solver.Day, false, input); 
             }
 
-            //await SolveProblem(solver, 1, input, testInput);
+            await SolveProblem(solver, 1, input, testInput);
             await SolveProblem(solver, 2, input, testInput);
         }
         
