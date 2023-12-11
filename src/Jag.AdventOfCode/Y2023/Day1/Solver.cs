@@ -11,7 +11,6 @@ namespace Jag.AdventOfCode.Y2023.Day1
 
         public int Day => 1;
 
-        private static readonly IReadOnlyList<char> digits = new List<char> {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9' }.AsReadOnly();
         private static readonly IReadOnlyDictionary<string, char> digitStrings = new Dictionary<string, char> {
             { "one", '1' },
             { "two", '2' },
@@ -31,7 +30,7 @@ namespace Jag.AdventOfCode.Y2023.Day1
             var filteredLines = lines
                 .Where(line => !string.IsNullOrWhiteSpace(line))
                 .Select(line => line
-                    .Where(c => digits.Contains(c)));
+                    .Where(c => c.IsDigit()));
             foreach (var filteredLine in filteredLines)
             {
                 var first = filteredLine.First();
@@ -54,7 +53,7 @@ namespace Jag.AdventOfCode.Y2023.Day1
 
                 for (int i = 0; i < line.Length; i++)
                 {
-                    if (digits.Contains(line[i]))
+                    if (line[i].IsDigit())
                     {
                         chars.Add(line[i]);
                     }

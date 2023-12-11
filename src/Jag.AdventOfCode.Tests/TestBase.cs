@@ -44,10 +44,10 @@ namespace Jag.AdventOfCode.Tests
         //     await Test(solver.Year, solver.Day, 2, false);
         // }
 
-        protected async Task Test(int year, int day, int part, bool test)
+        protected async Task Test(int year, int day, int part, bool test, string? inputOverride = null, string? expectedAnswerOverride = null)
         {
-            var input = await inputRepository.GetInputAsync(year, day, test);
-            var expectedAnswer = await answerRepository.GetExpectedAnswerAsync(year, day, part, test);
+            var input = inputOverride ?? await inputRepository.GetInputAsync(year, day, test);
+            var expectedAnswer = expectedAnswerOverride ?? await answerRepository.GetExpectedAnswerAsync(year, day, part, test);
 
             string answer;
             switch (part)

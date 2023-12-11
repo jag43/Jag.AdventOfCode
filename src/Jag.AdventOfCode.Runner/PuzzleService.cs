@@ -29,7 +29,7 @@ namespace Jag.AdventOfCode.Runner
                 logger.LogWarning("No AoC session cookie - cannot get input or submit results");
             }
 
-            ISolver solver = new Y2023.Day2.Solver();
+            ISolver solver = new Y2023.Day3.Solver();
 
             var testInput = await inputRepository.GetInputAsync(solver.Year, solver.Day, true);
             var input = await inputRepository.GetInputAsync(solver.Year, solver.Day, false);
