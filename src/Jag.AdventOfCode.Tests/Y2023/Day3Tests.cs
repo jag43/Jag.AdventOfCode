@@ -39,6 +39,14 @@ namespace Jag.AdventOfCode.Tests.Y2023
             await base.Test(solver.Year, solver.Day, 1, true, input, expectedAnswer);
         }
 
+        [Fact]
+        public async Task Part1TestC()
+        {
+            string input = @".1.*.";
+            string expectedAnswer = "0";
+            await base.Test(solver.Year, solver.Day, 1, true, input, expectedAnswer);
+        }
+
         //[Part(1), Input(false)]
         [Fact]
         public async Task Part1()

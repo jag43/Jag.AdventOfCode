@@ -13,10 +13,6 @@ namespace Jag.AdventOfCode.Y2023.Day3
 
         public string SolvePart1(string input)
         {
-            // foreach (var group in input.GroupBy(c => c).OrderBy(group => group.Count()))
-            // {
-            //     Console.WriteLine($"{group.Key}: {group.Count()}");
-            // }
             var lines = input.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
             var partsNumbers = new List<int>();
             for (int lineIndex = 0; lineIndex < lines.Length; lineIndex++)
@@ -85,7 +81,7 @@ namespace Jag.AdventOfCode.Y2023.Day3
             var checkStartsAtIndex = Math.Max(numberStartsAtIndex - 1, 0);
             var checkEndsAtIndex = Math.Min(numberStartsAtIndex + numberLength + 1, line.Length - 1);
             // Console.WriteLine($"{line}: Check {checkStartsAtIndex}-{checkEndsAtIndex}");
-            for (int i = checkStartsAtIndex; i <= checkEndsAtIndex; i++)
+            for (int i = checkStartsAtIndex; i < checkEndsAtIndex; i++)
             {
                 char c = line[i];
                 if (!c.IsDigit() && c != '.' && c != '\r' && c != '\n')
@@ -98,7 +94,85 @@ namespace Jag.AdventOfCode.Y2023.Day3
 
         public string SolvePart2(string input)
         {
-            throw new NotImplementedException();
+            var lines = input.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+            var (asterisks, partNumbers) = BuildAsteriskAndPartNumbers(lines);
+            var gears = new List<(int, int)>();
+            foreach (var asterisk in asterisks)
+            {
+                var adjAndDiagCoordinates = GetAdjacentAndDiagonalPositions(asterisk, lines[0].Length, lines.Length);
+                var adjOrDiagPartsNumbers = new HashSet<(Guid, string)>();
+                foreach (var adjOrDiagCoordinate in adjAndDiagCoordinates)
+                {
+                    if (partNumbers.ContainsKey(adjOrDiagCoordinate))
+                    {
+                        adjOrDiagPartsNumbers.Add(partNumbers[adjOrDiagCoordinate]);
+                    }
+                    if (adjOrDiagPartsNumbers.Count > 2)
+                    {
+                        break;
+                    }
+                }
+                if (adjOrDiagPartsNumbers.Count == 2)
+                {
+                    int part1 = int.Parse(adjOrDiagPartsNumbers.First().Item2);
+                    int part2 = int.Parse(adjOrDiagPartsNumbers.Last().Item2);
+                    gears.Add((part1, part2));
+                }
+            }
+            return gears.Sum(t => t.Item1 * t.Item2).ToString();
+        }
+
+        private (List<Coordinate> Asterisks, Dictionary<Coordinate, (Guid, string)> PartNumbers) BuildAsteriskAndPartNumbers(string[] lines)
+        {
+            var asterisks = new List<Coordinate>();
+            var partNumbers = new Dictionary<Coordinate, (Guid, string)>();
+            for (int lineIndex = 0; lineIndex < lines.Length; lineIndex++)
+            {
+                var line = lines[lineIndex];
+                for (int charIndex = 0; charIndex < line.Length; charIndex++)
+                {
+                    var coordinate = new Coordinate(charIndex, lineIndex);
+                    if (line[charIndex] == '*')
+                    {
+                        asterisks.Add(coordinate);
+                    }
+
+                    if (line[charIndex].IsDigit())
+                    {
+                        var firstChar = charIndex == 0;
+                        var prevCharIsDigit = charIndex > 0 && line[charIndex - 1].IsDigit();
+                        if (firstChar || !prevCharIsDigit)
+                        {
+                            partNumbers.Add(coordinate, (Guid.NewGuid(), BuildNumber(line, charIndex)));
+                        }
+                        else // then prev char must be digit
+                        {
+                            partNumbers.Add(coordinate, partNumbers[coordinate with { X = charIndex - 1 }]);
+                        }
+                    }
+                }
+            }
+            return (asterisks, partNumbers);
+        }
+    
+        private static IEnumerable<Coordinate> GetAdjacentAndDiagonalPositions(Coordinate center, int xBound, int yBound)
+        {
+            var yOffsets = new int[] { -1, 0, 1 };
+            var xOffsets = new int[] { -1, 0, 1 };
+
+            foreach (var xOffset in xOffsets)
+            {
+                foreach (int yOffset in yOffsets)
+                {
+                    var neighbourToCheck = new Coordinate(center.X + xOffset, center.Y + yOffset);
+                    if (neighbourToCheck.X < 0 || neighbourToCheck.X >= xBound || neighbourToCheck.Y < 0 || neighbourToCheck.Y >= yBound)
+                    {
+                        continue;
+                    }
+                    yield return neighbourToCheck;
+                }
+            }
         }
     }
+    public record Coordinate(int X, int Y);
 }
