@@ -18,7 +18,6 @@ namespace Jag.AdventOfCode.Y2021.Day21
 
         public string SolvePart2(string input)
         {
-            // Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(QuantumRolls.Select(q => new {q.p1roll, q.p2roll, q.universes}), Newtonsoft.Json.Formatting.Indented));
             var (p1position, p2position) = ParseInput(input);
             var (p1wins, p2wins) = PlayGame2(p1position, p2position);
             return new[] { p1wins, p2wins }.Max().ToString();
@@ -56,7 +55,6 @@ namespace Jag.AdventOfCode.Y2021.Day21
         private (long P1Wins, long P2Wins) PlayGame2(int p1Position, int p2Position)
         {
             var answer = PlayTurns(1, p1Position, p2Position, 0, 0);
-            Console.WriteLine(Cache[(5, 5, 13, 19)]);
             return answer;
         }
 
@@ -105,8 +103,6 @@ namespace Jag.AdventOfCode.Y2021.Day21
                     p2wins += (p1universes * p2universes * nextWins.P2Wins);
                 }
             }
-
-            //Console.WriteLine($"Turn {turn}, p1wins {p1wins}, p2wins {p2wins}, p1score {p1ScoreInitial}, p2score {p2ScoreInitial}");
 
             return (p1wins, p2wins);
         }

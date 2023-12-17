@@ -16,34 +16,24 @@ namespace Jag.AdventOfCode.Y2021.Day22
             var grid = new HashSet<(int, int, int)>();
             foreach (var line in ParseInput(input).WhereXYZInGridOf(50))
             {
-                // Console.WriteLine("Starting line " + line);
                 for (int x = line.X.Min; x <= line.X.Max; x++)
                 {
                     if (x > 50) 
                     {
-                        // Console.WriteLine(line);
-                        // Console.WriteLine((x));
                         return "";
                     }
-                    //Console.WriteLine("X: " + x);
                     for (int y = line.Y.Min; y <= line.Y.Max; y++)
                     {
                         if (y > 50) 
                         {
-                            // Console.WriteLine(line);
-                            // Console.WriteLine((x,y));
                             return "";
                         }
-                        //Console.WriteLine("Y: " + y);
                         for (int z = line.Z.Min; z <= line.Z.Max; z++)
                         {
                             if (z > 50) 
                             {
-                                // Console.WriteLine(line);
-                                // Console.WriteLine((x,y,z));
                                 return "";
                             }
-                            //Console.WriteLine("Z: " + z);
                             if (line.OnOrOff)
                             {
                                 grid.Add((x, y, z));
@@ -64,16 +54,12 @@ namespace Jag.AdventOfCode.Y2021.Day22
             var grid = new HashSet<(int, int, int)>();
             foreach (var line in ParseInput(input))
             {
-                // Console.WriteLine("Starting line " + line);
                 for (int x = line.X.Min; x <= line.X.Max; x++)
                 {
-                    //Console.WriteLine("X: " + x);
                     for (int y = line.Y.Min; y <= line.Y.Max; y++)
                     {
-                        //Console.WriteLine("Y: " + y);
                         for (int z = line.Z.Min; z <= line.Z.Max; z++)
                         {
-                            //Console.WriteLine("Z: " + z);
                             if (line.OnOrOff)
                             {
                                 grid.Add((x, y, z));

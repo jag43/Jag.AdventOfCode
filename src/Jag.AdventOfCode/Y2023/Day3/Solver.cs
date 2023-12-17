@@ -80,7 +80,6 @@ namespace Jag.AdventOfCode.Y2023.Day3
         {
             var checkStartsAtIndex = Math.Max(numberStartsAtIndex - 1, 0);
             var checkEndsAtIndex = Math.Min(numberStartsAtIndex + numberLength + 1, line.Length - 1);
-            // Console.WriteLine($"{line}: Check {checkStartsAtIndex}-{checkEndsAtIndex}");
             for (int i = checkStartsAtIndex; i < checkEndsAtIndex; i++)
             {
                 char c = line[i];

@@ -30,18 +30,6 @@ namespace Jag.AdventOfCode.Y2021.Day5
             return GetAnswer(gridWithDiagonals);
         }
 
-        private void Visualise(int[,] grid)
-        {
-            for (int i = 0; i < grid.GetUpperBound(0) + 1; i++)
-            {
-                for (int k = 0; k < grid.GetUpperBound(1) + 1; k++)
-                {
-                    Console.Write(grid[k,i] == 0 ? "." : grid[k,i]);
-                }
-                Console.WriteLine();
-            }
-        }
-
         private IEnumerable<Position> GetPositionsBetweenPositions((Position start, Position end) line)
         {
             var (start, end) = line;

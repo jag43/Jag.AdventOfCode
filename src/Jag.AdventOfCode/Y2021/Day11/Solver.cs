@@ -37,25 +37,9 @@ namespace Jag.AdventOfCode.Y2021.Day11
                         }
                     }
                 }
-                Console.WriteLine($"After Step:{step}, cum flashes: {flashes}, 0s this step: {dumbo.SelectMany(i => i).Where(i => i == 0).Count()}");
-                // WriteToConsole(dumbo);
-                // Console.WriteLine();
             }
 
             return flashes.ToString();
-        }
-
-        private void WriteToConsole(int[][] dumbo)
-        {
-            for (int i = 0; i < dumbo.Length; i++)
-            {
-                var row = dumbo[i];
-                for (int k = 0; k < row.Length; k++)
-                {
-                    Console.Write(dumbo[i][k] > 9 ? "0" : dumbo[i][k].ToString());
-                }
-                Console.WriteLine();
-            }
         }
 
         private int Increment(int[][] dumbo, int i, int k)
@@ -102,7 +86,6 @@ namespace Jag.AdventOfCode.Y2021.Day11
                 }
 
                 var flashesThisStep = dumbo.SelectMany(i => i).Where(i => i == 0).Count();
-                Console.WriteLine($"After Step:{step}, cum flashes: {flashes}, 0s this step: {flashesThisStep}");
                 if (dumboCount == flashesThisStep)
                 {
                     return step.ToString();

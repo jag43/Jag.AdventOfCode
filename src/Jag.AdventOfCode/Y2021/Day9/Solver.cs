@@ -58,16 +58,6 @@ namespace Jag.AdventOfCode.Y2021.Day9
                 }
             }
 
-            foreach(var line in basinMap)
-            {
-                foreach(var i in line)
-                {
-                    Console.Write(i == int.MaxValue ? '9' : i.HasValue ? '0' : '-');
-                }
-                
-                Console.WriteLine();
-            }
-
             var basins = basinMap.SelectMany(m => m)
                 .Where(i => i != int.MaxValue)
                 .GroupBy(i => i)

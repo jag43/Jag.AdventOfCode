@@ -69,7 +69,6 @@ namespace Jag.AdventOfCode.Y2023.Day1
                     }
                 }
                 var subSum = new string([chars.First(), chars.Last()]);
-                Console.WriteLine(subSum);
                 sum += int.Parse(subSum);
             }
             return sum.ToString();

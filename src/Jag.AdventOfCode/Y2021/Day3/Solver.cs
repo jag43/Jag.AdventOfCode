@@ -14,15 +14,11 @@ namespace Jag.AdventOfCode.Y2021.Day3
         {
             var lines = input.Split(Environment.NewLine, options: StringSplitOptions.RemoveEmptyEntries).Select(b => b.ToCharArray()).ToList();
 
-            Console.WriteLine("Get gamma string");
             var gammaString = new string(GetGammaString(lines));
             var gamma = Convert.ToUInt64(gammaString, 2);
 
-            Console.WriteLine("Get epsilon string");
             var epsilonString = new string(GetEpsilonString(lines));
             var epsilon = Convert.ToUInt64(epsilonString, 2);
-
-            Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(new{gammaString, gamma, epsilonString, epsilon}));
 
             return (gamma * epsilon).ToString();
         }
@@ -85,8 +81,6 @@ namespace Jag.AdventOfCode.Y2021.Day3
             var oxygen = Convert.ToUInt64(oxygenString, 2);
             var co2scrub = Convert.ToUInt64(co2scrubString, 2);
 
-            Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(new{oxygenString, oxygen, co2scrub, co2scrubString}));
-
             return (oxygen * co2scrub).ToString();
         }
 
@@ -102,7 +96,6 @@ namespace Jag.AdventOfCode.Y2021.Day3
                     : num1s > num0s ? '1'
                     : '0';
 
-                Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(new{i, num1s,num0s,ch}));
                 lines.RemoveAll(l => l[i] != ch);
 
                 if (lines.Count == 1)
@@ -127,7 +120,6 @@ namespace Jag.AdventOfCode.Y2021.Day3
                     : num1s > num0s ? '0'
                     : '1';
 
-                Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(new{i, num1s,num0s,ch}));
                 lines.RemoveAll(l => l[i] != ch);
 
                 if (lines.Count == 1)
