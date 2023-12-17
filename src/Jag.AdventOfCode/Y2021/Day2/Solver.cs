@@ -11,7 +11,7 @@ namespace Jag.AdventOfCode.Y2021.Day2
 
         public string SolvePart1(string input)
         {
-            var commands = input.Split(Environment.NewLine, options: StringSplitOptions.RemoveEmptyEntries)
+            var commands = input.Split(Environment.NewLine, options: SSO.Value)
                 .Select(s => s.Split(" "));
 
             var horizontal = 0;
@@ -38,7 +38,7 @@ namespace Jag.AdventOfCode.Y2021.Day2
 
         public string SolvePart2(string input)
         {
-                        var commands = input.Split(Environment.NewLine, options: StringSplitOptions.RemoveEmptyEntries)
+                        var commands = input.Split(Environment.NewLine, options: SSO.Value)
                 .Select(s => s.Split(" "));
 
             var horizontal = 0;

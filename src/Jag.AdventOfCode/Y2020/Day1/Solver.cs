@@ -52,7 +52,7 @@ namespace Jag.AdventOfCode.Y2020.Day1
 
         private int[] ParseInput(string input)
         {
-            return input.Split(Environment.NewLine, options: StringSplitOptions.RemoveEmptyEntries)
+            return input.Split(Environment.NewLine, options: SSO.Value)
                 .Select(s => int.Parse(s))
                 .ToArray();
         }

@@ -76,7 +76,7 @@ namespace Jag.AdventOfCode.Y2021.Day15
 
         private int[][] ParseInput1(string input)
         {
-            return input.Split(Environment.NewLine, options: StringSplitOptions.RemoveEmptyEntries)
+            return input.Split(Environment.NewLine, options: SSO.Value)
                 .Select(s => s.ToCharArray()
                     .Select(c => int.Parse(c.ToString()))
                     .ToArray())

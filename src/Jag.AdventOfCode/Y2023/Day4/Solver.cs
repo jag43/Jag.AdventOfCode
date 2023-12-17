@@ -13,7 +13,7 @@ namespace Jag.AdventOfCode.Y2023.Day4
 
         public string SolvePart1(string input)
         {
-            var lines = input.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+            var lines = input.Split(Environment.NewLine, SSO.Value)
                 .Where(line => !string.IsNullOrWhiteSpace(line));
             var cards = lines.Select(Card.Parse);
             var sum = 0;
@@ -33,7 +33,7 @@ namespace Jag.AdventOfCode.Y2023.Day4
 
         public string SolvePart2(string input)
         {
-            var lines = input.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+            var lines = input.Split(Environment.NewLine, SSO.Value)
                 .Where(line => !string.IsNullOrWhiteSpace(line));
             var cards = lines.Select(Card.Parse).ToList();
             for (int cardIndex = 0; cardIndex < cards.Count; cardIndex++)

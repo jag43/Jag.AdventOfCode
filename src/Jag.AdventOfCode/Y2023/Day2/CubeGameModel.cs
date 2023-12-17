@@ -9,7 +9,7 @@ public class CubeGameModel
 
     public List<CubeGameRoundModel> Rounds {get;} = new List<CubeGameRoundModel>();
 
-    private const StringSplitOptions stringSplitOptions = StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries;
+    private const StringSplitOptions stringSplitOptions = SSO.Value;
 
     public static CubeGameModel Parse(string line)
     {

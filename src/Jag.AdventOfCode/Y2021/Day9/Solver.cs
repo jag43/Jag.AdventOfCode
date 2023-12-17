@@ -70,7 +70,7 @@ namespace Jag.AdventOfCode.Y2021.Day9
         private List<int[]> ParseInput(string input)
         {
             var list = new List<int[]>();
-            var lines = input.Split(Environment.NewLine, options : StringSplitOptions.RemoveEmptyEntries);
+            var lines = input.Split(Environment.NewLine, options : SSO.Value);
 
             foreach (var line in lines)
             {

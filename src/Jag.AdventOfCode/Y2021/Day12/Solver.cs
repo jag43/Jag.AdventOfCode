@@ -34,9 +34,9 @@ namespace Jag.AdventOfCode.Y2021.Day12
         {
             var caves = new Dictionary<string, Cave>();
 
-            foreach (var line in input.Split(Environment.NewLine, options: StringSplitOptions.RemoveEmptyEntries))
+            foreach (var line in input.Split(Environment.NewLine, options: SSO.Value))
             {
-                var lineNodes = line.Split("-", options: StringSplitOptions.RemoveEmptyEntries);
+                var lineNodes = line.Split("-", options: SSO.Value);
                 string left = lineNodes[0];
                 Cave leftCave;
                 if (caves.ContainsKey(left))

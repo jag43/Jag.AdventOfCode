@@ -50,11 +50,11 @@ namespace Jag.AdventOfCode.Y2021.Day20
 
         public (bool[] imageAlgorithm, SparseGrid initialGrid) ParseInput(string input)
         {
-            var chunks = input.Split(Environment.NewLine + Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
+            var chunks = input.Split(Environment.NewLine + Environment.NewLine, SSO.Value);
             bool[] imageAlgorithm = chunks[0].Select(c => c == '.' ? false : c == '#' ? true : throw new Exception("Invalid char in input.")).ToArray();
 
             var grid = new SparseGrid();
-            var gridLines = chunks[1].Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
+            var gridLines = chunks[1].Split(Environment.NewLine, SSO.Value);
             for (int row = 0; row < gridLines.Length; row++)
             {
                 for (int col = 0; col < gridLines[row].Length; col++)

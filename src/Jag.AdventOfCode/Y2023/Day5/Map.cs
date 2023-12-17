@@ -15,7 +15,7 @@ public class Map
         DestinationEnd = DestinationStart + RangeLength;
     }
 
-    private const StringSplitOptions sso = StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries;
+    private const StringSplitOptions sso = SSO.Value;
     
     public long SourceStart { get; }
     

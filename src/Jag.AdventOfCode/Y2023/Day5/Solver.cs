@@ -6,7 +6,7 @@ namespace Jag.AdventOfCode.Y2023.Day5
 {
     public class Solver : ISolver
     {
-        private const StringSplitOptions sso = StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries;
+        private const StringSplitOptions sso = SSO.Value;
 
         public int Year => 2023;
 

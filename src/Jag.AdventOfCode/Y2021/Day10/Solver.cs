@@ -67,7 +67,7 @@ namespace Jag.AdventOfCode.Y2021.Day10
 
         private string[] ParseInput(string input)
         {
-            return input.Split(Environment.NewLine, options: StringSplitOptions.RemoveEmptyEntries);
+            return input.Split(Environment.NewLine, options: SSO.Value);
         }
         public string SolvePart2(string input)
         {

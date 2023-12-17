@@ -22,7 +22,7 @@ public class SeedRange
     public static List<SeedRange> Parse(string line)
     {
         var list = new List<SeedRange>();
-        var numbers = line.Split(' ', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+        var numbers = line.Split(' ', SSO.Value)
             .Skip(1)
             .Select(long.Parse)
             .ToList();

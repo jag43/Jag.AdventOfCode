@@ -20,7 +20,7 @@ public record Game2 (Hand2 Hand, long Bid) : IComparable<Game2>
 
     public static Game2 Parse(string line)
     {
-        var split = line.Split(" ", StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+        var split = line.Split(" ", SSO.Value);
         return new Game2(Hand2.Parse(split[0]), long.Parse(split[1]));
     }
 }

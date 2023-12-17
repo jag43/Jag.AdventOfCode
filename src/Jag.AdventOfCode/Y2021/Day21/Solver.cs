@@ -137,7 +137,7 @@ namespace Jag.AdventOfCode.Y2021.Day21
 
         public (int P1Start, int P2Start) ParseInput(string input)
         {
-            var lines = input.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
+            var lines = input.Split(Environment.NewLine, SSO.Value);
             var p1start = int.Parse(lines[0].Substring(lines[0].Length - 2));
             var p2start = int.Parse(lines[1].Substring(lines[1].Length - 2));
 

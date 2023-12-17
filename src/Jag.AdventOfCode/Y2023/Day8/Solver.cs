@@ -12,7 +12,7 @@ namespace Jag.AdventOfCode.Y2023.Day8
 
         public int Day => 8;
 
-        StringSplitOptions sso = StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries;
+        StringSplitOptions sso = SSO.Value;
 
         public string SolvePart1(string input)
         {

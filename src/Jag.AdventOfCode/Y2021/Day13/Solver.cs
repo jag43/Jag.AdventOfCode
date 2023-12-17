@@ -81,14 +81,14 @@ namespace Jag.AdventOfCode.Y2021.Day13
         public (List<(int x, int y)> Points, List<(char Axis, int Index)> Folds) ParseInput(string input)
         {
             var pointsAndFolds = input.Split(Environment.NewLine + Environment.NewLine);
-            var points = pointsAndFolds[0].Split(Environment.NewLine, options: StringSplitOptions.RemoveEmptyEntries)
+            var points = pointsAndFolds[0].Split(Environment.NewLine, options: SSO.Value)
                 .Select(s => 
                 {
-                    var xy = s.Split(',', options: StringSplitOptions.RemoveEmptyEntries);
+                    var xy = s.Split(',', options: SSO.Value);
                     return (int.Parse(xy[0]), int.Parse(xy[1]));
                 })
                 .ToList();
-            var folds = pointsAndFolds[1].Split(Environment.NewLine, options: StringSplitOptions.RemoveEmptyEntries)
+            var folds = pointsAndFolds[1].Split(Environment.NewLine, options: SSO.Value)
                 .Select(s => (s[11], int.Parse(s.Substring(13))))
                 .ToList();
 

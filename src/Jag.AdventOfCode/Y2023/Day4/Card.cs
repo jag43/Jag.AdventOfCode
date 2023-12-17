@@ -6,7 +6,7 @@ namespace Jag.AdventOfCode.Y2023.Day4;
 
 public class Card 
 {
-    private const StringSplitOptions stringSplitOptions = StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries;
+    private const StringSplitOptions stringSplitOptions = SSO.Value;
 
     public int Id { get; set; }
 

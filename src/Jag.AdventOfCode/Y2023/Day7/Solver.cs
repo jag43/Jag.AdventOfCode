@@ -12,7 +12,7 @@ namespace Jag.AdventOfCode.Y2023.Day7
 
         public string SolvePart1(string input)
         {
-            var games = input.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+            var games = input.Split(Environment.NewLine, SSO.Value)
                 .Select(Game1.Parse)
                 .ToArray();
             Array.Sort(games);
@@ -29,7 +29,7 @@ namespace Jag.AdventOfCode.Y2023.Day7
 
         public string SolvePart2(string input)
         {
-            var games = input.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+            var games = input.Split(Environment.NewLine, SSO.Value)
                 .Select(Game2.Parse)
                 .ToArray();
             Array.Sort(games);

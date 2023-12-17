@@ -51,7 +51,7 @@ public class Solver : ISolver
 
 public record Race(long Time, long Distance) 
 {
-    private const StringSplitOptions sso = StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries;
+    private const StringSplitOptions sso = SSO.Value;
    
     public static List<Race> ParseRaces(string input)
     {

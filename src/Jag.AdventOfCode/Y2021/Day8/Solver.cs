@@ -85,8 +85,8 @@ namespace Jag.AdventOfCode.Y2021.Day8
 
         private IEnumerable<(string[] Left, string[] Right)> ParseInput(string input)
         {
-            var lines = input.Split(Environment.NewLine, options: StringSplitOptions.RemoveEmptyEntries)
-                .Select(line => line.Split(" | ", options: StringSplitOptions.RemoveEmptyEntries));
+            var lines = input.Split(Environment.NewLine, options: SSO.Value)
+                .Select(line => line.Split(" | ", options: SSO.Value));
             foreach (var line in lines)
             {
                 var left = line[0].Split(" ").Select(segment => new string(new SortedSet<char>(segment).ToArray())).ToArray();

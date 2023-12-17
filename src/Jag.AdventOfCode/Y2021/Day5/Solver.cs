@@ -78,7 +78,7 @@ namespace Jag.AdventOfCode.Y2021.Day5
         private List<(Position start, Position end)> MapLinesFromData(string value)
         {
             var lines = new List<(Position, Position)>();
-            var rows = value.Split(Environment.NewLine, options: StringSplitOptions.RemoveEmptyEntries);
+            var rows = value.Split(Environment.NewLine, options: SSO.Value);
             
             foreach (var row in rows)
             {

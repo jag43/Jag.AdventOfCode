@@ -78,11 +78,11 @@ namespace Jag.AdventOfCode.Y2021.Day22
         public (bool OnOrOff, (int Min, int Max) X, (int Min, int Max) Y, (int Min, int Max) Z)[] ParseInput(
             string input)
         {
-            var lines = input.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
+            var lines = input.Split(Environment.NewLine, SSO.Value);
 
             return lines.Select(line => 
             {
-                var split = line.Split(" ", StringSplitOptions.RemoveEmptyEntries);
+                var split = line.Split(" ", SSO.Value);
                 return (OnOrOff: ParseOnOff(split[0]), Line: split[1]);
             })
             .Select(line =>

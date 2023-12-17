@@ -45,7 +45,7 @@ namespace Jag.AdventOfCode.Y2021.Day18
 
         public NumberTreePairNode[] ParseInput(string input)
         {
-            var lines = input.Split(Environment.NewLine, options: StringSplitOptions.RemoveEmptyEntries);
+            var lines = input.Split(Environment.NewLine, options: SSO.Value);
 
             var nodes = lines.Select(line => ParseLine(line)).ToArray();
 

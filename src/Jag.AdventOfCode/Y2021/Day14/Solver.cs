@@ -89,7 +89,7 @@ namespace Jag.AdventOfCode.Y2021.Day14
 
         public (string template, Dictionary<Pair, (Pair LeftPair, Pair RightPair)> rules) ParseInput(string input)
         {
-            var lines = input.Split(Environment.NewLine, options: StringSplitOptions.RemoveEmptyEntries);
+            var lines = input.Split(Environment.NewLine, options: SSO.Value);
             var template = lines[0];
             var pairs = lines.Skip(1)
                 .Select(s => s.Split(" -> "))

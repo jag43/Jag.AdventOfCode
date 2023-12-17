@@ -24,10 +24,10 @@ namespace Jag.AdventOfCode.Y2020.Day2
     
         private IEnumerable<PasswordPolicy> ParseInput(string input)
         {
-            foreach(var line in input.Split(Environment.NewLine, options: StringSplitOptions.RemoveEmptyEntries))
+            foreach(var line in input.Split(Environment.NewLine, options: SSO.Value))
             {
-                var words = line.Split(" ", options: StringSplitOptions.RemoveEmptyEntries);
-                var numbers = words[0].Split("-", options: StringSplitOptions.RemoveEmptyEntries);
+                var words = line.Split(" ", options: SSO.Value);
+                var numbers = words[0].Split("-", options: SSO.Value);
                 yield return new PasswordPolicy()
                 {
                     FirstNumber = int.Parse(numbers[0]),

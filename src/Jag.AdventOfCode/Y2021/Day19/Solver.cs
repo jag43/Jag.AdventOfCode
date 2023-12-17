@@ -37,10 +37,10 @@ namespace Jag.AdventOfCode.Y2021.Day19
 
         public IEnumerable<Scanner> ParseInput(string input)
         {
-            string[] scanners = input.Split(Environment.NewLine + Environment.NewLine, options: StringSplitOptions.RemoveEmptyEntries);
+            string[] scanners = input.Split(Environment.NewLine + Environment.NewLine, options: SSO.Value);
             foreach (var scannerInput in scanners)
             {
-                var scannerLines = scannerInput.Split(Environment.NewLine, options: StringSplitOptions.RemoveEmptyEntries);
+                var scannerLines = scannerInput.Split(Environment.NewLine, options: SSO.Value);
                 var scanner = new Scanner()
                 {
                     Number =  int.Parse(scannerLines[0].Substring(12, 2).Trim())

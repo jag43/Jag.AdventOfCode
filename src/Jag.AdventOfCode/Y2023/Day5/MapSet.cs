@@ -6,7 +6,7 @@ namespace Jag.AdventOfCode.Y2023.Day5;
 
 public class MapSet
 {
-    private const StringSplitOptions sso = StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries;
+    private const StringSplitOptions sso = SSO.Value;
     public string Name { get; set; }
     public List<Map> Maps { get; set; } = [];
 

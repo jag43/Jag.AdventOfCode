@@ -12,7 +12,7 @@ namespace Jag.AdventOfCode.Y2021.Day3
 
         public string SolvePart1(string input)
         {
-            var lines = input.Split(Environment.NewLine, options: StringSplitOptions.RemoveEmptyEntries).Select(b => b.ToCharArray()).ToList();
+            var lines = input.Split(Environment.NewLine, options: SSO.Value).Select(b => b.ToCharArray()).ToList();
 
             var gammaString = new string(GetGammaString(lines));
             var gamma = Convert.ToUInt64(gammaString, 2);
@@ -73,7 +73,7 @@ namespace Jag.AdventOfCode.Y2021.Day3
 
         public string SolvePart2(string input)
         {
-            var lines = input.Split(Environment.NewLine, options: StringSplitOptions.RemoveEmptyEntries).Select(b => b.ToCharArray());
+            var lines = input.Split(Environment.NewLine, options: SSO.Value).Select(b => b.ToCharArray());
 
             var oxygenString = new string(GetOxygenString(lines));
             var co2scrubString = new string(GetCo2String(lines));

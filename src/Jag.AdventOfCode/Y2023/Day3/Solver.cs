@@ -13,7 +13,7 @@ namespace Jag.AdventOfCode.Y2023.Day3
 
         public string SolvePart1(string input)
         {
-            var lines = input.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+            var lines = input.Split(Environment.NewLine, SSO.Value);
             var partsNumbers = new List<int>();
             for (int lineIndex = 0; lineIndex < lines.Length; lineIndex++)
             {
@@ -93,7 +93,7 @@ namespace Jag.AdventOfCode.Y2023.Day3
 
         public string SolvePart2(string input)
         {
-            var lines = input.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+            var lines = input.Split(Environment.NewLine, SSO.Value);
             var (asterisks, partNumbers) = BuildAsteriskAndPartNumbers(lines);
             var gears = new List<(int, int)>();
             foreach (var asterisk in asterisks)
